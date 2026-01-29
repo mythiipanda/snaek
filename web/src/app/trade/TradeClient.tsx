@@ -19,14 +19,10 @@ import {
 } from "@/components/ui/dialog";
 
 import type { Item, ParsedValue } from "@/lib/items-types";
-import { getValue } from "@/lib/items-types";
+import { formatParsedValueCompact, formatValueCompact, getValue } from "@/lib/items-types";
 import { matchesQuery } from "@/lib/search";
 
 type Side = "offer" | "request";
-
-function formatNum(n: number) {
-  return n.toLocaleString();
-}
 
 export function TradeClient({ items }: { items: Item[] }) {
   const itemsById = useMemo(() => {
@@ -157,14 +153,7 @@ export function TradeClient({ items }: { items: Item[] }) {
     },
   };
 
-  const formatTotal = (pv: ParsedValue) => {
-    if (pv.min == null && pv.max == null) return "—";
-    const min = pv.min ?? pv.max ?? 0;
-    const max = pv.max ?? pv.min ?? 0;
-    const core =
-      min === max ? formatNum(min) : `${formatNum(min)}–${formatNum(max)}`;
-    return `${core}${pv.hasPlus ? "+" : ""}`;
-  };
+  const formatTotal = (pv: ParsedValue) => formatParsedValueCompact(pv);
 
   const formatDiff = (pv: ParsedValue) => {
     const min = pv.min ?? pv.max ?? 0;
@@ -174,7 +163,7 @@ export function TradeClient({ items }: { items: Item[] }) {
     const fmtSigned = (n: number) => {
       const sign = n > 0 ? "+" : n < 0 ? "-" : "";
       const abs = Math.abs(n);
-      return `${sign}${formatNum(abs)}`;
+      return `${sign}${formatValueCompact(abs)}`;
     };
 
     const core =

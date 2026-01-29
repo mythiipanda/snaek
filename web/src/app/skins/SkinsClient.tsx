@@ -15,12 +15,13 @@ import {
 } from "@/components/ui/select";
 
 import type { Item } from "@/lib/items-types";
-import { parseField } from "@/lib/items-types";
+import { formatParsedValueCompact, parseField } from "@/lib/items-types";
 import { matchesQuery } from "@/lib/search";
 
-function formatVal(v: Item[keyof Item]) {
+function formatVal(v: number | string | null | undefined) {
   if (v === null || v === undefined) return "—";
-  if (typeof v === "number") return v.toLocaleString();
+  const pv = parseField(v);
+  if (pv.min != null || pv.max != null) return formatParsedValueCompact(pv);
   return String(v);
 }
 
@@ -45,13 +46,16 @@ export function SkinsClient({ items }: { items: Item[] }) {
     if (sort === "name") {
       sorted.sort((a, b) => a.skin_name.localeCompare(b.skin_name));
     } else {
-      // value sort: base_value (parsed) desc then name
+      // value sort: use range (max then min) desc, then name
       sorted.sort((a, b) => {
         const pa = parseField(a.base_value as number | string | null | undefined);
         const pb = parseField(b.base_value as number | string | null | undefined);
-        const av = pa.max ?? pa.min ?? -1;
-        const bv = pb.max ?? pb.min ?? -1;
-        if (av !== bv) return bv - av;
+        const aMax = pa.max ?? pa.min ?? -1;
+        const bMax = pb.max ?? pb.min ?? -1;
+        if (aMax !== bMax) return bMax - aMax;
+        const aMin = pa.min ?? pa.max ?? -1;
+        const bMin = pb.min ?? pb.max ?? -1;
+        if (aMin !== bMin) return bMin - aMin;
         return a.skin_name.localeCompare(b.skin_name);
       });
     }

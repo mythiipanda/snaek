@@ -21,23 +21,10 @@ export type ParsedValue = {
   hasPlus: boolean;
 };
 
-function parseNumberWithSuffix(raw: string, defaultMultiplier = 1): number | null {
-  const lower = raw.toLowerCase();
-  let multiplier = defaultMultiplier;
-  if (lower.includes("m")) {
-    multiplier = 1_000_000;
-  } else if (lower.includes("k")) {
-    multiplier = 1_000;
-  }
-
-  const cleaned = lower.replace(/[^0-9.,]/g, "");
-  if (!cleaned) return null;
-
-  const normalized = cleaned.replace(/,/g, "."); // handle both 1,2 and 1.2
-  const num = Number.parseFloat(normalized);
-  if (!Number.isFinite(num)) return null;
-
-  return Math.round(num * multiplier);
+/** Parse a single numeric string (DB values are already normalized: plain numbers or "min-max"). */
+function parseNum(s: string): number | null {
+  const n = Number.parseFloat(s.trim());
+  return Number.isFinite(n) ? n : null;
 }
 
 export function parseField(raw: number | string | null | undefined): ParsedValue {
@@ -51,42 +38,58 @@ export function parseField(raw: number | string | null | undefined): ParsedValue
   }
 
   const str = String(raw).trim();
-  const lower = str.toLowerCase();
-  const hasPlus = lower.includes("+");
+  const hasPlus = str.includes("+");
 
-  // Ranges like "1300-1400", "38-40k", "1.2k-1.4k"
-  const parts = lower.split("-");
+  // Range "min-max" (DB already normalized to plain integers)
+  const parts = str.split("-");
   if (parts.length === 2) {
-    const [left, right] = parts;
-    // If only right has suffix, reuse it for left.
-    const rightHasSuffix = /[km]/.test(right);
-    const baseMultiplier = rightHasSuffix
-      ? right.includes("m")
-        ? 1_000_000
-        : 1_000
-      : 1;
-
-    const min = parseNumberWithSuffix(left, baseMultiplier);
-    const max = parseNumberWithSuffix(right, baseMultiplier);
-
-    return {
-      min: Number.isFinite(min as number) ? (min as number) : null,
-      max: Number.isFinite(max as number) ? (max as number) : null,
-      hasPlus,
-    };
+    const min = parseNum(parts[0].trim());
+    const max = parseNum(parts[1].trim());
+    if (min != null && max != null) {
+      return { min, max, hasPlus };
+    }
   }
 
-  // Single number with optional suffix, e.g. "23.5k", "1.2m", "700"
-  const n = parseNumberWithSuffix(lower);
-  return {
-    min: Number.isFinite(n as number) ? (n as number) : null,
-    max: Number.isFinite(n as number) ? (n as number) : null,
-    hasPlus,
-  };
+  // Single number (optional trailing +)
+  const single = parseNum(str.replace(/\+$/, "").trim());
+  if (single != null) {
+    return { min: single, max: single, hasPlus };
+  }
+
+  return { min: null, max: null, hasPlus: false };
 }
 
 export function getValue(item: Item, field: ValueField): ParsedValue {
   const v = item[field];
   return parseField(v as number | string | null | undefined);
+}
+
+/** Format a number with K/M suffix for display (e.g. 1100 → "1.1k", 1500000 → "1.5M"). */
+export function formatValueCompact(n: number): string {
+  if (!Number.isFinite(n)) return "—";
+  const abs = Math.abs(n);
+  if (abs >= 1_000_000) {
+    const v = n / 1_000_000;
+    const s = v % 1 === 0 ? String(Math.round(v)) : v.toFixed(1);
+    return `${s}M`;
+  }
+  if (abs >= 1_000) {
+    const v = n / 1_000;
+    const s = v % 1 === 0 ? String(Math.round(v)) : v.toFixed(1);
+    return `${s}k`;
+  }
+  return n.toLocaleString();
+}
+
+/** Format a parsed value (single or range) with K/M, preserving range and optional +. */
+export function formatParsedValueCompact(pv: ParsedValue): string {
+  if (pv.min == null && pv.max == null) return "—";
+  const min = pv.min ?? pv.max ?? 0;
+  const max = pv.max ?? pv.min ?? 0;
+  const core =
+    min === max
+      ? formatValueCompact(min)
+      : `${formatValueCompact(min)}–${formatValueCompact(max)}`;
+  return `${core}${pv.hasPlus ? "+" : ""}`;
 }
 

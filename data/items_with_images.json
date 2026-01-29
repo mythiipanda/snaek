@@ -1022,7 +1022,7 @@
         "skin_name": "Grim",
         "base_value": 5600,
         "dg_value": 5600,
-        "ck_value": "11.2k",
+        "ck_value": 11200,
         "upg_value": 5600,
         "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/1/18/Deagle_Grim.png/revision/latest?cb=20251228040428"
@@ -1057,9 +1057,9 @@
       {
         "skin_name": "Independence",
         "base_value": 270000,
-        "dg_value": "275-280k",
+        "dg_value": "275000-280000",
         "ck_value": "noone will offer in cks",
-        "upg_value": "270k",
+        "upg_value": 270000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/5/56/Deagle_Independence.png/revision/latest?cb=20251228041541"
       },
@@ -1156,9 +1156,9 @@
       {
         "skin_name": "Xmas",
         "base_value": 11500,
-        "dg_value": "11.5k",
-        "ck_value": "23k",
-        "upg_value": "11-11.5k",
+        "dg_value": 11500,
+        "ck_value": 23000,
+        "upg_value": "11000-11500",
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/f/fe/Deagle_Xmas.png/revision/latest?cb=20251228043209"
       }
@@ -1332,8 +1332,8 @@
         "skin_name": "MK11",
         "base_value": 8500,
         "dg_value": 8000,
-        "ck_value": "16k-17k",
-        "upg_value": "8k",
+        "ck_value": "16000-17000",
+        "upg_value": 8000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/0a/FAMAS_MK11.png/revision/latest?cb=20260101204240"
       },
@@ -1846,7 +1846,7 @@
         "skin_name": "Wolf",
         "base_value": 600,
         "dg_value": "400-600",
-        "ck_value": "800-1,200",
+        "ck_value": "800-1200",
         "upg_value": 400,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/8c/M249_Wolf.png/revision/latest?cb=20251220212857"
@@ -1901,8 +1901,8 @@
       {
         "skin_name": "Jester",
         "base_value": 5800,
-        "dg_value": "5,500-5,800",
-        "ck_value": "11-11,6k",
+        "dg_value": "5500-5800",
+        "ck_value": "11000-11600",
         "upg_value": 5500,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/cc/M4A1_Jester.png/revision/latest?cb=20260102012654"
@@ -2029,9 +2029,9 @@
       {
         "skin_name": "Delinquent",
         "base_value": 2000,
-        "dg_value": "1,800-2,000",
-        "ck_value": "3,600-4,000",
-        "upg_value": "1,600-1,800",
+        "dg_value": "1800-2000",
+        "ck_value": "3600-4000",
+        "upg_value": "1600-1800",
         "status": "Bad/Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/7/7f/M4A4_Delinquent.png/revision/latest?cb=20260124015452"
       },
@@ -2066,7 +2066,7 @@
         "skin_name": "Flashy Ride",
         "base_value": 1000,
         "dg_value": 1200,
-        "ck_value": "2,000-2,400",
+        "ck_value": "2000-2400",
         "upg_value": 1000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/8b/M4A4_Flashy_Ride.png/revision/latest?cb=20260124013716"
@@ -2083,8 +2083,8 @@
       {
         "skin_name": "Jester",
         "base_value": 5000,
-        "dg_value": "5,400-5,600",
-        "ck_value": "10,8-11,2k",
+        "dg_value": "5400-5600",
+        "ck_value": "10800-11200",
         "upg_value": 5000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/ca/M4A4_Jester.png/revision/latest?cb=20260124015836"
@@ -2092,9 +2092,9 @@
       {
         "skin_name": "King",
         "base_value": 110000,
-        "dg_value": "110k",
-        "ck_value": "220k",
-        "upg_value": "105-110k",
+        "dg_value": 110000,
+        "ck_value": 220000,
+        "upg_value": "105000-110000",
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/04/M4A4_King.png/revision/latest?cb=20260124020139"
       },
@@ -2164,8 +2164,8 @@
       {
         "skin_name": "Quicktime",
         "base_value": 1200,
-        "dg_value": "1,200-1,300",
-        "ck_value": "2,400-2,600",
+        "dg_value": "1200-1300",
+        "ck_value": "2400-2600",
         "upg_value": 1200,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/c9/M4A4_Quicktime.png/revision/latest?cb=20260124020450"
@@ -2220,7 +2220,7 @@
       {
         "skin_name": "Blaze",
         "base_value": 1200,
-        "dg_value": "1,200-1,400",
+        "dg_value": "1200-1400",
         "ck_value": 2400,
         "upg_value": 1200,
         "status": "Mid/Decent",
@@ -2348,8 +2348,8 @@
       {
         "skin_name": "Molten",
         "base_value": 4500,
-        "dg_value": "4,000-4,500",
-        "ck_value": "8,000-9,000",
+        "dg_value": "4000-4500",
+        "ck_value": "8000-9000",
         "upg_value": 4000,
         "status": "Bad/Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/4e/MAG-7_Molten.png/revision/latest?cb=20251123204130"
@@ -2616,7 +2616,7 @@
         "skin_name": "Winterfall",
         "base_value": "700-750",
         "dg_value": 750,
-        "ck_value": "1400-1,500",
+        "ck_value": "1400-1500",
         "upg_value": 750,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/a/af/Negev_Winterfell.png/revision/latest?cb=20251220211610"
@@ -2928,7 +2928,7 @@
         "skin_name": "TC250",
         "base_value": 9000,
         "dg_value": 9000,
-        "ck_value": "18k",
+        "ck_value": 18000,
         "upg_value": 9000,
         "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/ea/P250_TC250.png/revision/latest?cb=20251228183201"
@@ -3250,9 +3250,9 @@
       {
         "skin_name": "Xmas",
         "base_value": 15500,
-        "dg_value": "15,5-16k",
-        "ck_value": "31-32k",
-        "upg_value": "15,5k",
+        "dg_value": "15500-16000",
+        "ck_value": "31000-32000",
+        "upg_value": 15500,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/0f/Scout_Xmas.png/revision/latest?cb=20251229230116"
       }
@@ -3297,7 +3297,7 @@
       {
         "skin_name": "Kitty Cat",
         "base_value": 1400,
-        "dg_value": "1,400-1,600",
+        "dg_value": "1400-1600",
         "ck_value": 2800,
         "upg_value": 1400,
         "status": "Good",
@@ -3351,8 +3351,8 @@
       {
         "skin_name": "Yltude",
         "base_value": 8500,
-        "dg_value": "8,000-8,500",
-        "ck_value": "16k-17k",
+        "dg_value": "8000-8500",
+        "ck_value": "16000-17000",
         "upg_value": 8000,
         "status": "Bad/Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/03/SG_Yltude.png/revision/latest?cb=20251229224752"
@@ -3452,8 +3452,8 @@
       {
         "skin_name": "Whispers",
         "base_value": 3000,
-        "dg_value": "3,000-4,000",
-        "ck_value": "6,000-8,000",
+        "dg_value": "3000-4000",
+        "ck_value": "6000-8000",
         "upg_value": 3000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/c3/Tec-9_Whispers.png/revision/latest?cb=20251221142511"
@@ -3508,9 +3508,9 @@
       {
         "skin_name": "Molten",
         "base_value": 45000,
-        "dg_value": "40-45k",
-        "ck_value": "80-90k",
-        "upg_value": "40-42.5k",
+        "dg_value": "40000-45000",
+        "ck_value": "80000-90000",
+        "upg_value": "40000-42500",
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/4e/MAG-7_Molten.png/revision/latest?cb=20251123204130"
       },
@@ -3760,7 +3760,7 @@
         "skin_name": "Aequalis",
         "base_value": 700,
         "dg_value": "800-900",
-        "ck_value": "1,600-1,800",
+        "ck_value": "1600-1800",
         "upg_value": 700,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/7/79/Bayonet_Aequalis.png/revision/latest?cb=20251220013815"
@@ -3769,7 +3769,7 @@
         "skin_name": "Banner",
         "base_value": 6000,
         "dg_value": 6000,
-        "ck_value": "12k",
+        "ck_value": 12000,
         "upg_value": 6000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/3e/Bayonet_Banner.png/revision/latest?cb=20251220013917"
@@ -3787,7 +3787,7 @@
         "skin_name": "Candy Cane",
         "base_value": 800,
         "dg_value": "700-800",
-        "ck_value": "1,400-1,600",
+        "ck_value": "1400-1600",
         "upg_value": 700,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/03/Bayonet_Candy_Cane.png/revision/latest?cb=20251220014044"
@@ -3804,8 +3804,8 @@
       {
         "skin_name": "Consumed",
         "base_value": 7000,
-        "dg_value": "7,200-7,400",
-        "ck_value": "14.4-14,8k",
+        "dg_value": "7200-7400",
+        "ck_value": "14400-14800",
         "upg_value": 7000,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/2/24/Bayonet_Consumed.png/revision/latest?cb=20251220015043"
@@ -3832,7 +3832,7 @@
         "skin_name": "Crow",
         "base_value": 9600,
         "dg_value": 9500,
-        "ck_value": "19k",
+        "ck_value": 19000,
         "upg_value": 9500,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/5/52/Bayonet_Crow.png/revision/latest?cb=20251220015414"
@@ -3876,9 +3876,9 @@
       {
         "skin_name": "Festive",
         "base_value": 12000,
-        "dg_value": "12-12.2k",
-        "ck_value": "24k",
-        "upg_value": "12k",
+        "dg_value": "12000-12200",
+        "ck_value": 24000,
+        "upg_value": 12000,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/42/Bayonet_Festive.png/revision/latest?cb=20251220021008"
       },
@@ -3912,8 +3912,8 @@
       {
         "skin_name": "Goo",
         "base_value": 5200,
-        "dg_value": "5,200-5,400",
-        "ck_value": "10.4-10.8k",
+        "dg_value": "5200-5400",
+        "ck_value": "10400-10800",
         "upg_value": 5200,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/ee/Bayonet_Goo.png/revision/latest?cb=20251220023333"
@@ -3921,18 +3921,18 @@
       {
         "skin_name": "Grim",
         "base_value": 4300,
-        "dg_value": "5,000-5,500",
-        "ck_value": "10-11k",
+        "dg_value": "5000-5500",
+        "ck_value": "10000-11000",
         "upg_value": 4300,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/e3/Bayonet_Grim.png/revision/latest?cb=20260126020040"
       },
       {
         "skin_name": "Hallows",
-        "base_value": "55k",
-        "dg_value": "56-57k",
+        "base_value": 55000,
+        "dg_value": "56000-57000",
         "ck_value": "no-one will offer in cks",
-        "upg_value": "55k",
+        "upg_value": 55000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/06/Bayonet_Hallows.png/revision/latest?cb=20251220023621"
       },
@@ -3947,18 +3947,18 @@
       },
       {
         "skin_name": "Intertwine",
-        "base_value": "25k",
-        "dg_value": "26-27k",
+        "base_value": 25000,
+        "dg_value": "26000-27000",
         "ck_value": "noone will offer in cks",
-        "upg_value": "25k",
+        "upg_value": 25000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/5/52/Bayonet_Intertwine.png/revision/latest?cb=20251220023928"
       },
       {
         "skin_name": "Kill or Treat",
         "base_value": 3800,
-        "dg_value": "4,500-5,000",
-        "ck_value": "9-10k",
+        "dg_value": "4500-5000",
+        "ck_value": "9000-10000",
         "upg_value": 3800,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/2/2c/Bayonet_Kill_or_Treat.png/revision/latest?cb=20251220024035"
@@ -4010,10 +4010,10 @@
       },
       {
         "skin_name": "RSL",
-        "base_value": "80k",
-        "dg_value": "90k",
+        "base_value": 80000,
+        "dg_value": 90000,
         "ck_value": "noone will offer in cks",
-        "upg_value": "80k",
+        "upg_value": 80000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/6e/Bayonet_RSL.png/revision/latest?cb=20251220025145"
       },
@@ -4028,18 +4028,18 @@
       },
       {
         "skin_name": "Sapphire",
-        "base_value": "60k",
-        "dg_value": "60k",
-        "ck_value": "120k",
-        "upg_value": "60k",
+        "base_value": 60000,
+        "dg_value": 60000,
+        "ck_value": 120000,
+        "upg_value": 60000,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/1/10/Bayonet_Sapphire.png/revision/latest?cb=20251220025513"
       },
       {
         "skin_name": "Silent Night",
         "base_value": 1100,
-        "dg_value": "1,100-1,200",
-        "ck_value": "2,200-2,400",
+        "dg_value": "1100-1200",
+        "ck_value": "2200-2400",
         "upg_value": 1100,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/9/9b/Bayonet_Silent_Night.png/revision/latest?cb=20251220025719"
@@ -4082,8 +4082,8 @@
       },
       {
         "skin_name": "Twitch",
-        "base_value": "420k",
-        "dg_value": "330-340k",
+        "base_value": 420000,
+        "dg_value": "330000-340000",
         "ck_value": "noone will offer in cks",
         "upg_value": "Alot of mixed opinions",
         "status": "Bad",
@@ -4130,9 +4130,9 @@
       {
         "skin_name": "Late Night",
         "base_value": 25000,
-        "dg_value": "25k",
-        "ck_value": "50k",
-        "upg_value": "25k",
+        "dg_value": 25000,
+        "ck_value": 50000,
+        "upg_value": 25000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/e3/M9_Bayonet_Late_Night.png/revision/latest?cb=20260123142308"
       },
@@ -4151,7 +4151,7 @@
         "skin_name": "Beast",
         "base_value": 6600,
         "dg_value": "7000-7200",
-        "ck_value": "14-14.4k",
+        "ck_value": "14000-14400",
         "upg_value": 6600,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/37/Axe_Beast.png/revision/latest?cb=20251122234317"
@@ -4159,8 +4159,8 @@
       {
         "skin_name": "Splattered",
         "base_value": 5600,
-        "dg_value": "5,800-6,000",
-        "ck_value": "11.6-12k",
+        "dg_value": "5800-6000",
+        "ck_value": "11600-12000",
         "upg_value": 5600,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/b/ba/Splattered_Axe.png/revision/latest?cb=20251122234040"
@@ -4168,8 +4168,8 @@
       {
         "skin_name": "Stock",
         "base_value": 5400,
-        "dg_value": "5,600-5,800",
-        "ck_value": "11.2-11.6k",
+        "dg_value": "5600-5800",
+        "ck_value": "11200-11600",
         "upg_value": 5400,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/d8/Axe_Stock.png/revision/latest?cb=20251122234713"
@@ -4179,36 +4179,36 @@
       {
         "skin_name": "Argus",
         "base_value": 3200,
-        "dg_value": "2,800-3,000",
-        "ck_value": "5,600-6,000",
-        "upg_value": "2,800-3,000",
+        "dg_value": "2800-3000",
+        "ck_value": "5600-6000",
+        "upg_value": "2800-3000",
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/3b/Butter_Argus.png/revision/latest?cb=20251219200821"
       },
       {
         "skin_name": "Aurora",
-        "base_value": "23.5k",
-        "dg_value": "23.5k",
-        "ck_value": "47-48k",
-        "upg_value": "23-23.5k",
+        "base_value": 23500,
+        "dg_value": 23500,
+        "ck_value": "47000-48000",
+        "upg_value": "23000-23500",
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/8e/Butterfly_Aurora.png/revision/latest?cb=20251219200930"
       },
       {
         "skin_name": "Bloodwidow",
         "base_value": 1400,
-        "dg_value": "700-1,400",
-        "ck_value": "1,400-2,800",
+        "dg_value": "700-1400",
+        "ck_value": "1400-2800",
         "upg_value": 700,
         "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/35/Butterfly_Bloodwidow.png/revision/latest?cb=20251219201208"
       },
       {
         "skin_name": "Consumed",
-        "base_value": "25k",
-        "dg_value": "26k",
-        "ck_value": "52k",
-        "upg_value": "25k",
+        "base_value": 25000,
+        "dg_value": 26000,
+        "ck_value": 52000,
+        "upg_value": 25000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/61/Butterfly_Consumed.png/revision/latest?cb=20251219201308"
       },
@@ -4251,27 +4251,27 @@
       {
         "skin_name": "Egg Shell",
         "base_value": 1000,
-        "dg_value": "1,000-1,200",
-        "ck_value": "2,000-2,400",
+        "dg_value": "1000-1200",
+        "ck_value": "2000-2400",
         "upg_value": 1000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/c1/Butterfly_Egg_Shell.png/revision/latest?cb=20251219202226"
       },
       {
         "skin_name": "Freedom",
-        "base_value": "270k",
-        "dg_value": "280-290k",
+        "base_value": 270000,
+        "dg_value": "280000-290000",
         "ck_value": "noone will offer in cks",
-        "upg_value": "270k",
+        "upg_value": 270000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/1/12/Butterfly_Freedom.png/revision/latest?cb=20251219202328"
       },
       {
         "skin_name": "Frozen Dream",
         "base_value": 5600,
-        "dg_value": "5,800-6,000",
-        "ck_value": "11.6-12k",
-        "upg_value": "5,600-5,800",
+        "dg_value": "5800-6000",
+        "ck_value": "11600-12000",
+        "upg_value": "5600-5800",
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/7/71/Butterfly_Frozen_Dream.png/revision/latest?cb=20251219202429"
       },
@@ -4286,28 +4286,28 @@
       },
       {
         "skin_name": "Goo",
-        "base_value": "26.5k",
-        "dg_value": "26.5k",
-        "ck_value": "53k",
-        "upg_value": "25-26k",
+        "base_value": 26500,
+        "dg_value": 26500,
+        "ck_value": 53000,
+        "upg_value": "25000-26000",
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/65/Butterfly_Goo.png/revision/latest?cb=20251219202543"
       },
       {
         "skin_name": "Grim",
         "base_value": 6200,
-        "dg_value": "8,000-8,500",
-        "ck_value": "12,4-17k",
+        "dg_value": "8000-8500",
+        "ck_value": "12400-17000",
         "upg_value": 6200,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/86/Butterfly_Grim.png/revision/latest?cb=20251219202711"
       },
       {
         "skin_name": "Hallows",
-        "base_value": "83k",
-        "dg_value": "83-85k",
+        "base_value": 83000,
+        "dg_value": "83000-85000",
         "ck_value": "noone will offer in cks",
-        "upg_value": "83k",
+        "upg_value": 83000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/7/7f/Butterfly_Hallows.png/revision/latest?cb=20251219202841"
       },
@@ -4324,7 +4324,7 @@
         "skin_name": "Inversion",
         "base_value": 5600,
         "dg_value": 5800,
-        "ck_value": "11.6k",
+        "ck_value": 11600,
         "upg_value": 5600,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/02/Butterfly_Inversion.png/revision/latest?cb=20251219203602"
@@ -4367,10 +4367,10 @@
       },
       {
         "skin_name": "Reaper",
-        "base_value": "17k",
-        "dg_value": "16-17k",
-        "ck_value": "32-34k",
-        "upg_value": "16k",
+        "base_value": 17000,
+        "dg_value": "16000-17000",
+        "ck_value": "32000-34000",
+        "upg_value": 16000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/f/f7/Butterfly_Reaper.png/revision/latest?cb=20251219204108"
       },
@@ -4405,7 +4405,7 @@
         "skin_name": "Splattered",
         "base_value": 1000,
         "dg_value": 1200,
-        "ck_value": "1,800-2,200",
+        "ck_value": "1800-2200",
         "upg_value": 1000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/7/71/Butterfly_Splattered.png/revision/latest?cb=20251219204805"
@@ -4423,7 +4423,7 @@
         "skin_name": "Stock",
         "base_value": 800,
         "dg_value": "400-600",
-        "ck_value": "1,200-1,600",
+        "ck_value": "1200-1600",
         "upg_value": 600,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/dc/Butterfly_Stock_CB.png/revision/latest?cb=20251219205229"
@@ -4448,7 +4448,7 @@
       },
       {
         "skin_name": "Twitch",
-        "base_value": "550k",
+        "base_value": 550000,
         "dg_value": "u cant afford it bro",
         "ck_value": "u cant afford it bro",
         "upg_value": "u cant afford it bro",
@@ -4466,7 +4466,7 @@
       },
       {
         "skin_name": "Whiteboss",
-        "base_value": "3.5m",
+        "base_value": 3500000,
         "dg_value": "u cant afford it bro",
         "ck_value": "u cant afford it bro",
         "upg_value": "u cant afford it bro",
@@ -4496,8 +4496,8 @@
       {
         "skin_name": "Spider",
         "base_value": 6200,
-        "dg_value": "6,600-6,800",
-        "ck_value": "12.4-13.6k",
+        "dg_value": "6600-6800",
+        "ck_value": "12400-13600",
         "upg_value": 6200,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/5/55/Cleaver_Spider.png/revision/latest?cb=20251122233721"
@@ -4505,8 +4505,8 @@
       {
         "skin_name": "Splattered",
         "base_value": 5600,
-        "dg_value": "5,800-6,000",
-        "ck_value": "11.2-12k",
+        "dg_value": "5800-6000",
+        "ck_value": "11200-12000",
         "upg_value": 5600,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/e6/Bayonet_Splattered.png/revision/latest?cb=20251220025833"
@@ -4514,8 +4514,8 @@
       {
         "skin_name": "Stock",
         "base_value": 5400,
-        "dg_value": "5,600-5,800",
-        "ck_value": "10.8-11.6k",
+        "dg_value": "5600-5800",
+        "ck_value": "10800-11600",
         "upg_value": 5400,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/a/a0/Cleaver_Stock.png/revision/latest?cb=20251122233838"
@@ -4561,8 +4561,8 @@
       {
         "skin_name": "Consumed",
         "base_value": 7000,
-        "dg_value": "7,000-7,200",
-        "ck_value": "14-14.4k",
+        "dg_value": "7000-7200",
+        "ck_value": "14000-14400",
         "upg_value": 7000,
         "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/86/Falchion_Consumed.png/revision/latest?cb=20251220161002"
@@ -4623,19 +4623,19 @@
       },
       {
         "skin_name": "Festive",
-        "base_value": "10k",
-        "dg_value": "10k",
-        "ck_value": "20k",
-        "upg_value": "10k",
+        "base_value": 10000,
+        "dg_value": 10000,
+        "ck_value": 20000,
+        "upg_value": 10000,
         "status": "Bad/Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/85/Falchion_Festive.png/revision/latest?cb=20251220161505"
       },
       {
         "skin_name": "Freedom",
-        "base_value": "200k",
-        "dg_value": "210-220k",
-        "ck_value": "420-440k",
-        "upg_value": "200k",
+        "base_value": 200000,
+        "dg_value": "210000-220000",
+        "ck_value": "420000-440000",
+        "upg_value": 200000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/da/Falchion_Freedom.png/revision/latest?cb=20251220161556"
       },
@@ -4650,28 +4650,28 @@
       },
       {
         "skin_name": "Goo",
-        "base_value": "29.5k",
-        "dg_value": "28-29k",
-        "ck_value": "56k",
-        "upg_value": "28k",
+        "base_value": 29500,
+        "dg_value": "28000-29000",
+        "ck_value": 56000,
+        "upg_value": 28000,
         "status": "Bad/Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/2/29/Falchion_Goo.png/revision/latest?cb=20251220161747"
       },
       {
         "skin_name": "Grim",
         "base_value": 3700,
-        "dg_value": "3,700-4,000",
-        "ck_value": "7,400-8,000",
+        "dg_value": "3700-4000",
+        "ck_value": "7400-8000",
         "upg_value": 3700,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/9/97/Falchion_Grim.png/revision/latest?cb=20251127190102"
       },
       {
         "skin_name": "Hallows",
-        "base_value": "32k",
-        "dg_value": "32-34k",
-        "ck_value": "64-68k",
-        "upg_value": "32k",
+        "base_value": 32000,
+        "dg_value": "32000-34000",
+        "ck_value": "64000-68000",
+        "upg_value": 32000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/80/Falchion_Hallows.png/revision/latest?cb=20251220161831"
       },
@@ -4695,7 +4695,7 @@
       },
       {
         "skin_name": "Late Night",
-        "base_value": "1m",
+        "base_value": 1000000,
         "dg_value": "u cant afford it bro",
         "ck_value": "u cant afford it bro",
         "upg_value": "u cant afford it bro",
@@ -4832,7 +4832,7 @@
         "skin_name": "Wrapped",
         "base_value": 7000,
         "dg_value": 7000,
-        "ck_value": "14k",
+        "ck_value": 14000,
         "upg_value": 7000,
         "status": "Bad/Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/9/96/Falchion_Wrapped.png/revision/latest?cb=20251220163836"
@@ -4840,8 +4840,8 @@
       {
         "skin_name": "Zombie",
         "base_value": 8400,
-        "dg_value": "8,000-8,400",
-        "ck_value": "16-16,8k",
+        "dg_value": "8000-8400",
+        "ck_value": "16000-16800",
         "upg_value": 8000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/f/f6/Falchion_Zombie.png/revision/latest?cb=20251220163917"
@@ -4950,8 +4950,8 @@
       {
         "skin_name": "Goo",
         "base_value": 3600,
-        "dg_value": "3,000-3,500",
-        "ck_value": "6-7k",
+        "dg_value": "3000-3500",
+        "ck_value": "6000-7000",
         "upg_value": 3000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/37/Gut_Goo.png/revision/latest?cb=20251220010755"
@@ -4967,10 +4967,10 @@
       },
       {
         "skin_name": "Hallows",
-        "base_value": "11.2k",
-        "dg_value": "12-13k",
-        "ck_value": "24-26k",
-        "upg_value": "11.2k",
+        "base_value": 11200,
+        "dg_value": "12000-13000",
+        "ck_value": "24000-26000",
+        "upg_value": 11200,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/03/Gut_Hallows.png/revision/latest?cb=20251220010406"
       },
@@ -4987,8 +4987,8 @@
         "skin_name": "Lurker",
         "base_value": 7800,
         "dg_value": 7500,
-        "ck_value": "15k",
-        "upg_value": "7,8k",
+        "ck_value": 15000,
+        "upg_value": 7800,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/00/Gut_Lurker.png/revision/latest?cb=20251220010922"
       },
@@ -5113,10 +5113,10 @@
     "huntsman": [
       {
         "skin_name": "Aurora",
-        "base_value": "20k",
-        "dg_value": "19-20k",
-        "ck_value": "38-40k",
-        "upg_value": "19-20k",
+        "base_value": 20000,
+        "dg_value": "19000-20000",
+        "ck_value": "38000-40000",
+        "upg_value": "19000-20000",
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/4b/Huntsman_Aurora.png/revision/latest?cb=20251220183233"
       },
@@ -5141,8 +5141,8 @@
       {
         "skin_name": "Consumed",
         "base_value": 7000,
-        "dg_value": "7,000-7,200",
-        "ck_value": "14-14.4k",
+        "dg_value": "7000-7200",
+        "ck_value": "14000-14400",
         "upg_value": 7000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/1/19/Huntsman_Consumed.png/revision/latest?cb=20251220183633"
@@ -5196,7 +5196,7 @@
         "skin_name": "Drop Out",
         "base_value": 700,
         "dg_value": "600-700",
-        "ck_value": "1,200-1,400",
+        "ck_value": "1200-1400",
         "upg_value": "600-700",
         "status": "Bad/Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/1/12/Huntsman_Drop_Out.png/revision/latest?cb=20251220184554"
@@ -5213,8 +5213,8 @@
       {
         "skin_name": "Frozen Dream",
         "base_value": 1600,
-        "dg_value": "1,600-1,800",
-        "ck_value": "3,200-3,600",
+        "dg_value": "1600-1800",
+        "ck_value": "3200-3600",
         "upg_value": 1600,
         "status": "Decent/Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/0a/Huntsman_Frozen_Dream.png/revision/latest?cb=20251220184742"
@@ -5232,7 +5232,7 @@
         "skin_name": "Goo",
         "base_value": 8500,
         "dg_value": 8500,
-        "ck_value": "17k",
+        "ck_value": 17000,
         "upg_value": 8500,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/1/1d/Huntsman_Goo.png/revision/latest?cb=20251220185051"
@@ -5240,27 +5240,27 @@
       {
         "skin_name": "Grim",
         "base_value": 3800,
-        "dg_value": "3,800-4,000",
-        "ck_value": "7,600-8,000",
+        "dg_value": "3800-4000",
+        "ck_value": "7600-8000",
         "upg_value": 3800,
         "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/8b/Huntsman_Grim.png/revision/latest?cb=20251220185133"
       },
       {
         "skin_name": "Hallows",
-        "base_value": "31k",
-        "dg_value": "31k",
-        "ck_value": "62k",
-        "upg_value": "31k",
+        "base_value": 31000,
+        "dg_value": 31000,
+        "ck_value": 62000,
+        "upg_value": 31000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/49/Huntsman_Hallows.png/revision/latest?cb=20251220185328"
       },
       {
         "skin_name": "Honor Fade",
-        "base_value": "42k",
-        "dg_value": "42-43k",
-        "ck_value": "84-86k",
-        "upg_value": "42k",
+        "base_value": 42000,
+        "dg_value": "42000-43000",
+        "ck_value": "84000-86000",
+        "upg_value": 42000,
         "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/6c/Huntsman_Honor_Fade.png/revision/latest?cb=20251220185432"
       },
@@ -5277,7 +5277,7 @@
         "skin_name": "Monster",
         "base_value": 8600,
         "dg_value": 8600,
-        "ck_value": "17.2k",
+        "ck_value": 17200,
         "upg_value": 8600,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/6a/Huntsman_Monster.png/revision/latest?cb=20251220194341"
@@ -5304,7 +5304,7 @@
         "skin_name": "Spirit",
         "base_value": 800,
         "dg_value": "800-1000",
-        "ck_value": "1,600-2,000",
+        "ck_value": "1600-2000",
         "upg_value": 800,
         "status": "Decent/Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/82/Huntsman_Spirit.png/revision/latest?cb=20251220194533"
@@ -5347,7 +5347,7 @@
       },
       {
         "skin_name": "Twitch",
-        "base_value": "1,2m",
+        "base_value": 1200000,
         "dg_value": "u cant afford it bro",
         "ck_value": "u cant afford it bro",
         "upg_value": "u cant afford it bro",
@@ -5403,7 +5403,7 @@
       },
       {
         "skin_name": "Consumed",
-        "base_value": "700k",
+        "base_value": 700000,
         "dg_value": "Item doesn't exist/0 owners",
         "ck_value": "Item doesn't exist",
         "upg_value": "Item doesn't exist/0 owners",
@@ -5484,10 +5484,10 @@
       },
       {
         "skin_name": "Festive",
-        "base_value": "21k",
-        "dg_value": "22k",
-        "ck_value": "44k",
-        "upg_value": "21k",
+        "base_value": 21000,
+        "dg_value": 22000,
+        "ck_value": 44000,
+        "upg_value": 21000,
         "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/5/5d/Karambit_Festive.png/revision/latest?cb=20251219220928"
       },
@@ -5495,7 +5495,7 @@
         "skin_name": "Frozen Dream",
         "base_value": 5400,
         "dg_value": "5600-5800",
-        "ck_value": "11.2-11.6k",
+        "ck_value": "11200-11600",
         "upg_value": 5400,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/82/Karambit_Frozen_Dream.png/revision/latest?cb=20251219221018"
@@ -5520,7 +5520,7 @@
       },
       {
         "skin_name": "Gold",
-        "base_value": "1.7m",
+        "base_value": 1700000,
         "dg_value": "u cant afford it bro",
         "ck_value": "u cant afford it bro",
         "upg_value": "u cant afford it bro",
@@ -5529,28 +5529,28 @@
       },
       {
         "skin_name": "Goo",
-        "base_value": "110k",
-        "dg_value": "110k",
-        "ck_value": "220k",
-        "upg_value": "100k",
+        "base_value": 110000,
+        "dg_value": 110000,
+        "ck_value": 220000,
+        "upg_value": 100000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/35/Karambit_Goo.png/revision/latest?cb=20251122230742"
       },
       {
         "skin_name": "Grim",
         "base_value": 5500,
-        "dg_value": "6,000-6,500",
-        "ck_value": "9,6-12k",
+        "dg_value": "6000-6500",
+        "ck_value": "9600-12000",
         "upg_value": 5500,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/01/Karambit_Grim.png/revision/latest?cb=20251127180922"
       },
       {
         "skin_name": "Hallows",
-        "base_value": "100k",
-        "dg_value": "105-110k",
+        "base_value": 100000,
+        "dg_value": "105000-110000",
         "ck_value": "noone will offer in cks",
-        "upg_value": "100k",
+        "upg_value": 100000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/cb/Karambit_Hallows.png/revision/latest?cb=20251219224117"
       },
@@ -5567,26 +5567,26 @@
         "skin_name": "Jester",
         "base_value": 5000,
         "dg_value": 5000,
-        "ck_value": "10k",
+        "ck_value": 10000,
         "upg_value": 5000,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/0/06/Karambit_Jester.png/revision/latest?cb=20251122230705"
       },
       {
         "skin_name": "Lantern",
-        "base_value": "14.5k",
-        "dg_value": "14.5-15k",
-        "ck_value": "29-30k",
-        "upg_value": "14.5k",
+        "base_value": 14500,
+        "dg_value": "14500-15000",
+        "ck_value": "29000-30000",
+        "upg_value": 14500,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/d9/Karambit_Lantern.png/revision/latest?cb=20251219224406"
       },
       {
         "skin_name": "Liberty Camo",
-        "base_value": "38k",
-        "dg_value": "38k",
-        "ck_value": "76k",
-        "upg_value": "38k",
+        "base_value": 38000,
+        "dg_value": 38000,
+        "ck_value": 76000,
+        "upg_value": 38000,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/9/9e/Karambit_Liberty_Camo.png/revision/latest?cb=20251219224458"
       },
@@ -5709,7 +5709,7 @@
       },
       {
         "skin_name": "Twitch",
-        "base_value": "300k",
+        "base_value": 300000,
         "dg_value": "u cant afford it bro",
         "ck_value": "u cant afford it bro",
         "upg_value": "u cant afford it bro",
@@ -5748,8 +5748,8 @@
       {
         "skin_name": "Mummy",
         "base_value": 15000,
-        "dg_value": "17k",
-        "ck_value": "34k",
+        "dg_value": 17000,
+        "ck_value": 34000,
         "upg_value": 15000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/dd/Sickle_Mummy.png/revision/latest?cb=20251123113633"
@@ -5757,8 +5757,8 @@
       {
         "skin_name": "Splattered",
         "base_value": 10000,
-        "dg_value": "11k",
-        "ck_value": "22k",
+        "dg_value": 11000,
+        "ck_value": 22000,
         "upg_value": 10000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/df/Sickle_Splattered.png/revision/latest?cb=20251123113635"
@@ -5766,8 +5766,8 @@
       {
         "skin_name": "Stock",
         "base_value": 9500,
-        "dg_value": "10.5k",
-        "ck_value": "21k",
+        "dg_value": 10500,
+        "ck_value": 21000,
         "upg_value": 9500,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/f/fc/Sickle_Stock.png/revision/latest?cb=20251123113636"
@@ -5775,8 +5775,8 @@
       {
         "skin_name": "Hallows",
         "base_value": 3400,
-        "dg_value": "3,400-4,000",
-        "ck_value": "6,800-8,000",
+        "dg_value": "3400-4000",
+        "ck_value": "6800-8000",
         "upg_value": 3400,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/c4/Sickle_Hallows.png/revision/latest?cb=20251219214651"
@@ -5784,7 +5784,7 @@
       {
         "skin_name": "Hieroglyphs",
         "base_value": 1500,
-        "dg_value": "1,500-2,000",
+        "dg_value": "1500-2000",
         "ck_value": "3000-4000",
         "upg_value": 1500,
         "status": "Mid",
@@ -5811,7 +5811,7 @@
       {
         "skin_name": "Static",
         "base_value": 1500,
-        "dg_value": "1,500-2,000",
+        "dg_value": "1500-2000",
         "ck_value": "3000-4000",
         "upg_value": 1500,
         "status": "Mid",
@@ -5880,8 +5880,8 @@
       {
         "skin_name": "Dark Damascus",
         "base_value": 2500,
-        "dg_value": "2,500-3,000",
-        "ck_value": "5,000-6,000",
+        "dg_value": "2500-3000",
+        "ck_value": "5000-6000",
         "upg_value": 2500,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/a/a5/Handwraps_Dark_Damascus.png/revision/latest?cb=20251127201413"
@@ -5890,7 +5890,7 @@
         "skin_name": "Guts",
         "base_value": 400,
         "dg_value": "400-500",
-        "ck_value": "800-1,000",
+        "ck_value": "800-1000",
         "upg_value": 400,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/d7/Handwraps_Guts.png/revision/latest?cb=20260123141207"
@@ -5898,8 +5898,8 @@
       {
         "skin_name": "Ghoul Hex",
         "base_value": 3800,
-        "dg_value": "3,800-4,000",
-        "ck_value": "7,600-8,000",
+        "dg_value": "3800-4000",
+        "ck_value": "7600-8000",
         "upg_value": 3800,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/42/Handwraps_Ghoul_Hex.png/revision/latest?cb=20251123123640"
@@ -5917,7 +5917,7 @@
         "skin_name": "Green Hex",
         "base_value": 5000,
         "dg_value": 5400,
-        "ck_value": "10.8k",
+        "ck_value": 10800,
         "upg_value": 5000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/62/Handwraps_Green_Hex.png/revision/latest?cb=20251123123641"
@@ -5925,8 +5925,8 @@
       {
         "skin_name": "Phantom Hex",
         "base_value": 4000,
-        "dg_value": "4,000-4,200",
-        "ck_value": "8,000-8,400",
+        "dg_value": "4000-4200",
+        "ck_value": "8000-8400",
         "upg_value": 4000,
         "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/6f/Handwraps_Spector_Hex.png/revision/latest?cb=20251127201559"
@@ -5936,15 +5936,15 @@
         "base_value": 19000,
         "dg_value": "22k+",
         "ck_value": "44k+",
-        "upg_value": "19k",
+        "upg_value": 19000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/d5/Handwraps_Purple_Hex.png/revision/latest?cb=20251123123648"
       },
       {
         "skin_name": "Spector Hex",
         "base_value": 5000,
-        "dg_value": "5,000-5,200",
-        "ck_value": "10-10,4k",
+        "dg_value": "5000-5200",
+        "ck_value": "10000-10400",
         "upg_value": 5000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/6f/Handwraps_Spector_Hex.png/revision/latest?cb=20251127201559"
@@ -5963,7 +5963,7 @@
         "base_value": 13000,
         "dg_value": "14k+",
         "ck_value": "28k+",
-        "upg_value": "13k",
+        "upg_value": 13000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/d9/Handwraps_Orange_Hex.png/revision/latest?cb=20251123123647"
       },
@@ -6015,8 +6015,8 @@
       {
         "skin_name": "Yellow Hazard",
         "base_value": 4500,
-        "dg_value": "4,500-5,500",
-        "ck_value": "9-11k",
+        "dg_value": "4500-5500",
+        "ck_value": "9000-11000",
         "upg_value": 4500,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/b/be/Handwraps_Yellow_Hazard.png/revision/latest?cb=20251127201721"
@@ -6035,8 +6035,8 @@
       {
         "skin_name": "Blood Web",
         "base_value": 3000,
-        "dg_value": "3,000-3,500",
-        "ck_value": "6,000-7,000",
+        "dg_value": "3000-3500",
+        "ck_value": "6000-7000",
         "upg_value": 3000,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/9/97/Sports_Gloves_Blood_Web.png/revision/latest?cb=20251124013332"
@@ -6046,15 +6046,15 @@
         "base_value": 47000,
         "dg_value": "50k+",
         "ck_value": "100k+",
-        "upg_value": "47k",
+        "upg_value": 47000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/2/23/Sports_Gloves_Cottontails.png/revision/latest?cb=20251123124653"
       },
       {
         "skin_name": "Calamity",
         "base_value": 1200,
-        "dg_value": "1,000-1,200",
-        "ck_value": "2,000-2,400",
+        "dg_value": "1000-1200",
+        "ck_value": "2000-2400",
         "upg_value": 1000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/36/Sports_Gloves_Calamity.png/revision/latest?cb=20251123124533"
@@ -6062,8 +6062,8 @@
       {
         "skin_name": "Dark Damascus",
         "base_value": 2100,
-        "dg_value": "2,100-3,000",
-        "ck_value": "4,200-6,000",
+        "dg_value": "2100-3000",
+        "ck_value": "4200-6000",
         "upg_value": 2100,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/c5/Sports_Gloves_Dark_Damascus.png/revision/latest?cb=20251127222358"
@@ -6071,18 +6071,18 @@
       {
         "skin_name": "RSL",
         "base_value": 105000,
-        "dg_value": "120k",
-        "ck_value": "240k",
-        "upg_value": "105k",
+        "dg_value": 120000,
+        "ck_value": 240000,
+        "upg_value": 105000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/84/Sports_Gloves_RSL.png/revision/latest?cb=20251123124546"
       },
       {
         "skin_name": "Hallows",
-        "base_value": "300k",
+        "base_value": 300000,
         "dg_value": "300k+",
         "ck_value": "600k+",
-        "upg_value": "300k",
+        "upg_value": 300000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/30/Sports_Gloves_Hallows.png/revision/latest?cb=20251123124537"
       },
@@ -6098,8 +6098,8 @@
       {
         "skin_name": "Pumpkin",
         "base_value": 7600,
-        "dg_value": "8,000-8,200",
-        "ck_value": "16-16,4k",
+        "dg_value": "8000-8200",
+        "ck_value": "16000-16400",
         "upg_value": 7600,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/33/Sports_Gloves_Pumpkin.png/revision/latest?cb=20251123124542"
@@ -6125,8 +6125,8 @@
       {
         "skin_name": "Skulls",
         "base_value": 3800,
-        "dg_value": "4,000-4,200",
-        "ck_value": "8,000-8,400",
+        "dg_value": "4000-4200",
+        "ck_value": "8000-8400",
         "upg_value": 3800,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/7/7a/Sports_Gloves_Skulls.png/revision/latest?cb=20251123124526"
@@ -6153,7 +6153,7 @@
         "skin_name": "Majesty",
         "base_value": 700,
         "dg_value": "500-700",
-        "ck_value": "1,000-1,400",
+        "ck_value": "1000-1400",
         "upg_value": 500,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/7/70/Sports_Gloves_Majesty.png/revision/latest?cb=20251123124540"
@@ -6170,8 +6170,8 @@
       {
         "skin_name": "Dead Prey",
         "base_value": 1800,
-        "dg_value": "1,800-2,000",
-        "ck_value": "3,600-4,000",
+        "dg_value": "1800-2000",
+        "ck_value": "3600-4000",
         "upg_value": 1800,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/b/b7/Sports_Gloves_Dead_Prey.png/revision/latest?cb=20251123124535"
@@ -6217,8 +6217,8 @@
       {
         "skin_name": "Kringle",
         "base_value": 3800,
-        "dg_value": "4,000-4,200",
-        "ck_value": "8,000-8,400",
+        "dg_value": "4000-4200",
+        "ck_value": "8000-8400",
         "upg_value": 3800,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/4a/Strapped_Glove_Kringle.png/revision/latest?cb=20251123125000"
