@@ -5802,8 +5802,8 @@
       {
         "skin_name": "Reaper",
         "base_value": 3400,
-        "dg_value": "5,000+",
-        "ck_value": "10,000+",
+        "dg_value": "5000+",
+        "ck_value": "10000+",
         "upg_value": 3400,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/61/Sickle_Reaper.png/revision/latest?cb=20251219215017"
