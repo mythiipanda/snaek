@@ -172,7 +172,7 @@ export function TradeClient({ items }: { items: Item[] }) {
     if (min === 0 && max === 0) return "Even";
 
     const fmtSigned = (n: number) => {
-      const sign = n > 0 ? "+" : "";
+      const sign = n > 0 ? "+" : n < 0 ? "-" : "";
       const abs = Math.abs(n);
       return `${sign}${formatNum(abs)}`;
     };
