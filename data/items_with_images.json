@@ -372,8 +372,8 @@
       {
         "skin_name": "Weeb",
         "base_value": 7600,
-        "dg_value": "7800+",
-        "ck_value": "15600+",
+        "dg_value": "8000+",
+        "ck_value": "16000+",
         "upg_value": 7600,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/9/9b/AK47_Weeb.png/revision/latest?cb=20260123231425"
@@ -2104,7 +2104,7 @@
         "dg_value": 100,
         "ck_value": 200,
         "upg_value": 100,
-        "status": "Good",
+        "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/e5/M4A4_Mistletoe.png/revision/latest?cb=20260124013934"
       },
       {
@@ -2131,7 +2131,7 @@
         "dg_value": 800,
         "ck_value": 1600,
         "upg_value": 700,
-        "status": "Decent/Good",
+        "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/5/5e/M4A4_Pondside.png/revision/latest?cb=20260124014207"
       },
       {
@@ -2203,7 +2203,7 @@
         "dg_value": 100,
         "ck_value": 200,
         "upg_value": 100,
-        "status": "Good",
+        "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/b/b2/M4A4_Toy_Soldier.png/revision/latest?cb=20260124014746"
       }
     ],
@@ -2223,7 +2223,7 @@
         "dg_value": "1,200-1,400",
         "ck_value": 2400,
         "upg_value": 1200,
-        "status": "Mid",
+        "status": "Mid/Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/e1/MAC-10_Blaze.png/revision/latest?cb=20251223021857"
       },
       {
@@ -4150,8 +4150,8 @@
       {
         "skin_name": "Beast",
         "base_value": 6600,
-        "dg_value": 7400,
-        "ck_value": "14.8k",
+        "dg_value": "7000-7200",
+        "ck_value": "14-14.4k",
         "upg_value": 6600,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/37/Axe_Beast.png/revision/latest?cb=20251122234317"
@@ -5802,8 +5802,8 @@
       {
         "skin_name": "Reaper",
         "base_value": 3400,
-        "dg_value": "3,400-4,000",
-        "ck_value": "6,800-8,000",
+        "dg_value": "5,000+",
+        "ck_value": "10,000+",
         "upg_value": 3400,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/6/61/Sickle_Reaper.png/revision/latest?cb=20251219215017"
