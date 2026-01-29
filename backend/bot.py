@@ -129,6 +129,18 @@ async def skin_autocomplete(interaction: discord.Interaction, current: str) -> l
     return [app_commands.Choice(name=s, value=s) for s in matches]
 
 
+FIELD_CHOICES = ["base", "dg", "ck", "upg", "status"]
+
+
+async def field_autocomplete(_interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
+    """Return value field options (base, dg, ck, upg, status) that match the current string."""
+    current_lower = current.strip().lower()
+    if not current_lower:
+        return [app_commands.Choice(name=f, value=f) for f in FIELD_CHOICES]
+    matches = [f for f in FIELD_CHOICES if current_lower in f]
+    return [app_commands.Choice(name=f, value=f) for f in matches]
+
+
 @bot.event
 async def on_ready():
     logger.info("Bot ready as %s", bot.user)
@@ -156,17 +168,13 @@ async def value_cmd(interaction: discord.Interaction, gun: str, skin: str):
 
 @bot.tree.command(name="set", description="Set a value field for a gun skin (base/dg/ck/upg/status)")
 @app_commands.describe(
-    subcommand="Use 'value' to set item values",
     gun="Gun or item type (e.g. ak47)",
     skin="Skin name (e.g. glo)",
     field="Which value to set: base, dg, ck, upg, or status",
     value="New value (number or text)",
 )
-@app_commands.autocomplete(gun=gun_autocomplete, skin=skin_autocomplete)
-async def set_cmd(interaction: discord.Interaction, subcommand: str, gun: str, skin: str, field: str, value: str):
-    if subcommand.lower() != "value":
-        await interaction.response.send_message("Use `/set value <gun> <skin> <field> <value>`. Field: base, dg, ck, upg, status.", ephemeral=True)
-        return
+@app_commands.autocomplete(gun=gun_autocomplete, skin=skin_autocomplete, field=field_autocomplete)
+async def set_cmd(interaction: discord.Interaction, gun: str, skin: str, field: str, value: str):
     field_lower = field.strip().lower()
     if field_lower not in VALUE_FIELDS:
         await interaction.response.send_message(f"Invalid field. Use one of: base, dg, ck, upg, status.", ephemeral=True)
