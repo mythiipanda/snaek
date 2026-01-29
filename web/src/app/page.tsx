@@ -49,6 +49,20 @@ export default function Home() {
           </Button>
         </CardContent>
       </Card>
+
+      <Card className="md:col-span-2">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">Community & feedback</CardTitle>
+          <CardDescription className="flex flex-wrap items-center gap-2">
+            <Button asChild size="sm" variant="outline">
+              <a href="https://discord.gg/R853zQh7Yq" target="_blank" rel="noopener noreferrer">
+                Join the Discord
+              </a>
+            </Button>
+            <span>DM <strong>mythiipanda</strong> for suggestions or bugs.</span>
+          </CardDescription>
+        </CardHeader>
+      </Card>
     </div>
   );
 }
