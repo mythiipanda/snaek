@@ -108,6 +108,7 @@ export function SkinsClient({ items }: { items: Item[] }) {
                   alt={it.skin_name}
                   fill
                   sizes="(max-width: 1280px) 50vw, 25vw"
+                  referrerPolicy="no-referrer"
                   className="object-contain p-3"
                 />
               ) : null}

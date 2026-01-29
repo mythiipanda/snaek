@@ -248,6 +248,7 @@ export function TradeClient({ items }: { items: Item[] }) {
                           alt={it.skin_name}
                           fill
                           sizes="64px"
+                          referrerPolicy="no-referrer"
                           className="object-cover"
                         />
                       ) : null}
@@ -400,6 +401,7 @@ export function TradeClient({ items }: { items: Item[] }) {
                           alt={it.skin_name}
                           fill
                           sizes="64px"
+                          referrerPolicy="no-referrer"
                           className="object-contain p-1"
                         />
                       ) : null}
