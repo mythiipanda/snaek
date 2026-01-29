@@ -45,13 +45,31 @@ export function getStatusBadgeClassName(status: string | null | undefined): stri
   return TIER_CLASSES[tier];
 }
 
-/** For use on dark overlays: dot color + text color (light, high contrast). */
-const TIER_OVERLAY_CLASSES: Record<StatusTier, { dot: string; text: string }> = {
-  bad: { dot: "bg-red-400", text: "text-red-300" },
-  mid: { dot: "bg-amber-400", text: "text-amber-300" },
-  decent: { dot: "bg-lime-400", text: "text-lime-300" },
-  good: { dot: "bg-emerald-400", text: "text-emerald-300" },
-  neutral: { dot: "bg-white/50", text: "text-white/70" },
+/** Dot + text for overlay: light mode (on light gradient) and dark mode (on dark gradient). */
+const TIER_OVERLAY_CLASSES: Record<
+  StatusTier,
+  { dot: string; text: string }
+> = {
+  bad: {
+    dot: "bg-red-500 dark:bg-red-400",
+    text: "text-red-800 dark:text-red-300",
+  },
+  mid: {
+    dot: "bg-amber-500 dark:bg-amber-400",
+    text: "text-amber-800 dark:text-amber-300",
+  },
+  decent: {
+    dot: "bg-lime-600 dark:bg-lime-400",
+    text: "text-lime-800 dark:text-lime-300",
+  },
+  good: {
+    dot: "bg-emerald-600 dark:bg-emerald-400",
+    text: "text-emerald-800 dark:text-emerald-300",
+  },
+  neutral: {
+    dot: "bg-gray-500 dark:bg-white/50",
+    text: "text-gray-700 dark:text-white/70",
+  },
 };
 
 export function getStatusOverlayClasses(status: string | null | undefined) {

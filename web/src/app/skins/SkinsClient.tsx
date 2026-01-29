@@ -142,18 +142,18 @@ export function SkinsClient({ items }: { items: Item[] }) {
                   No image
                 </div>
               )}
-              {/* Gradient overlay for title + meta */}
+              {/* Gradient overlay: light = soft white fade, dark = dark fade */}
               <div
-                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/20 to-transparent"
+                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/90 via-white/30 to-transparent dark:from-black/75 dark:via-black/20 dark:to-transparent"
                 aria-hidden
               />
               {/* Title + type & status integrated in overlay */}
               <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-4 pt-10">
-                <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)] dark:text-white dark:drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                   {it.skin_name}
                 </h3>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/95">
+                  <span className="rounded-full bg-gray-900/15 px-2.5 py-1 text-[11px] font-medium tracking-wide text-gray-900 dark:bg-white/15 dark:text-white/95">
                     {it.gun}
                   </span>
                   <SkinStatusOverlay status={it.status} />
