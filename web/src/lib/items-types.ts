@@ -4,8 +4,8 @@ export type RawItem = {
   skin_name: string;
   base_value: number | null;
   dg_value: number | string | null;
-  ck_value: number | null;
-  upg_value: number | null;
+  ck_value: number | string | null;
+  upg_value: number | string | null;
   status: string | null;
   image_url: string | null;
 };
