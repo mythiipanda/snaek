@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
+    domains: ["static.wikia.nocookie.net"],
     remotePatterns: [
       {
         protocol: "https",
