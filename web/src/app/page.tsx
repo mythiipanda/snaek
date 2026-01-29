@@ -26,7 +26,7 @@ export default function Home() {
         <CardHeader>
           <CardTitle>Skins</CardTitle>
           <CardDescription>
-            Filter by gun + search by skin name, fast like Rolimons.
+            Filter by gun + search by skin name.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -40,7 +40,7 @@ export default function Home() {
         <CardHeader>
           <CardTitle>Trade calculator</CardTitle>
           <CardDescription>
-            Pick items for Offer vs Request and see totals + difference.
+            Calculate difference between Offer and Request items.
           </CardDescription>
         </CardHeader>
         <CardContent>
