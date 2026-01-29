@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { Check, Plus, Trash2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -272,7 +273,7 @@ export function TradeClient({ items }: { items: Item[] }) {
                         <Badge variant="secondary" className="h-5 px-2">
                           {it.gun}
                         </Badge>
-                        <span className="truncate">{it.status ?? "No status"}</span>
+                        <StatusBadge status={it.status} compact />
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -428,7 +429,7 @@ export function TradeClient({ items }: { items: Item[] }) {
                         <Badge variant="secondary" className="h-5 px-2">
                           {it.gun}
                         </Badge>
-                        <span className="truncate">{it.status ?? "No status"}</span>
+                        <StatusBadge status={it.status} compact />
                       </div>
                     </div>
                     <div className="grid w-[220px] grid-cols-4 gap-2 text-right text-xs tabular-nums">

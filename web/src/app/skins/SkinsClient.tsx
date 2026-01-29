@@ -3,9 +3,8 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { getStatusOverlayClasses } from "@/lib/status-color";
 import {
   Select,
   SelectContent,
@@ -23,6 +22,22 @@ function formatVal(v: number | string | null | undefined) {
   const pv = parseField(v);
   if (pv.min != null || pv.max != null) return formatParsedValueCompact(pv);
   return String(v);
+}
+
+function SkinStatusOverlay({ status }: { status: string | null | undefined }) {
+  const overlay = getStatusOverlayClasses(status);
+  const label = status ?? "—";
+  return (
+    <span className={`inline-flex items-center gap-1.5 ${overlay.text}`}>
+      <span
+        className={`h-1.5 w-1.5 shrink-0 rounded-full ${overlay.dot}`}
+        aria-hidden
+      />
+      <span className="max-w-[6rem] truncate text-[11px] font-medium">
+        {label}
+      </span>
+    </span>
+  );
 }
 
 export function SkinsClient({ items }: { items: Item[] }) {
@@ -105,10 +120,14 @@ export function SkinsClient({ items }: { items: Item[] }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filtered.map((it) => (
-          <Card key={it.id} className="overflow-hidden">
-            <div className="relative aspect-[16/10] w-full bg-muted">
+          <article
+            key={it.id}
+            className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card shadow-sm ring-border/20 transition-all duration-200 hover:border-border hover:shadow-lg hover:ring-2"
+          >
+            {/* Image with overlay */}
+            <div className="relative aspect-[4/3] w-full shrink-0 bg-muted/40">
               {it.image_url ? (
                 <Image
                   src={it.image_url}
@@ -116,36 +135,54 @@ export function SkinsClient({ items }: { items: Item[] }) {
                   fill
                   sizes="(max-width: 1280px) 50vw, 25vw"
                   referrerPolicy="no-referrer"
-                  className="object-contain p-3"
+                  className="object-contain object-center p-5 transition-transform duration-200 group-hover:scale-[1.02]"
                 />
-              ) : null}
-            </div>
-            <CardHeader className="space-y-2">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="truncate font-semibold">{it.skin_name}</div>
+              ) : (
+                <div className="flex h-full items-center justify-center text-muted-foreground text-xs">
+                  No image
                 </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="secondary" className="shrink-0">
+              )}
+              {/* Gradient overlay for title + meta */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/20 to-transparent"
+                aria-hidden
+              />
+              {/* Title + type & status integrated in overlay */}
+              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-4 pt-10">
+                <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  {it.skin_name}
+                </h3>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/95">
                     {it.gun}
-                  </Badge>
-                  <Badge variant="outline" className="shrink-0">
-                    {it.status ?? "No status"}
-                  </Badge>
+                  </span>
+                  <SkinStatusOverlay status={it.status} />
                 </div>
               </div>
-            </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-2 text-sm">
-              <div className="text-muted-foreground">Base</div>
-              <div className="text-right font-medium">{formatVal(it.base_value)}</div>
-              <div className="text-muted-foreground">DG</div>
-              <div className="text-right font-medium">{formatVal(it.dg_value)}</div>
-              <div className="text-muted-foreground">CK</div>
-              <div className="text-right font-medium">{formatVal(it.ck_value)}</div>
-              <div className="text-muted-foreground">UPG</div>
-              <div className="text-right font-medium">{formatVal(it.upg_value)}</div>
-            </CardContent>
-          </Card>
+            </div>
+
+            {/* Stats bar */}
+            <div className="grid grid-cols-4 divide-x divide-border/80 border-t border-border/60 bg-muted/30">
+              {[
+                { label: "Base", value: formatVal(it.base_value) },
+                { label: "DG", value: formatVal(it.dg_value) },
+                { label: "CK", value: formatVal(it.ck_value) },
+                { label: "UPG", value: formatVal(it.upg_value) },
+              ].map(({ label, value }) => (
+                <div
+                  key={label}
+                  className="flex flex-col items-center justify-center px-2 py-3 text-center"
+                >
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                    {label}
+                  </span>
+                  <span className="mt-0.5 text-sm font-semibold tabular-nums text-foreground">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </article>
         ))}
       </div>
     </div>

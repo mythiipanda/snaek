@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-dvh bg-background text-foreground antialiased`}
       >
@@ -34,7 +42,7 @@ export default function RootLayout({
               <Link href="/" className="font-semibold tracking-tight">
                 Snaek&apos;s Value List
               </Link>
-              <nav className="flex items-center gap-4 text-sm text-muted-foreground">
+              <nav className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Link
                   href="/skins"
                   className="hover:text-foreground transition-colors"
@@ -47,6 +55,7 @@ export default function RootLayout({
                 >
                   Trade calculator
                 </Link>
+                <ThemeToggle />
               </nav>
             </div>
           </header>
