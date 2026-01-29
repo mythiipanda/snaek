@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Check, Plus, Trash2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -37,12 +37,36 @@ export function TradeClient({ items }: { items: Item[] }) {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerSide, setPickerSide] = useState<Side>("offer");
   const [pickerQuery, setPickerQuery] = useState("");
+  const [pickerSelectedIds, setPickerSelectedIds] = useState<Set<string>>(new Set());
 
   const openPicker = (side: Side) => {
     setPickerSide(side);
     setPickerQuery("");
+    setPickerSelectedIds(new Set());
     setPickerOpen(true);
   };
+
+  const togglePickerItem = (id: string) => {
+    setPickerSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const addSelectedAndClose = () => {
+    if (pickerSelectedIds.size === 0) return;
+    setPickList([...pickList, ...pickerSelectedIds]);
+    setPickerSelectedIds(new Set());
+    setPickerOpen(false);
+  };
+
+  const selectAllInResults = () => {
+    setPickerSelectedIds(new Set(pickerResults.map((it) => it.id)));
+  };
+
+  const clearPickerSelection = () => setPickerSelectedIds(new Set());
 
   const pickList = pickerSide === "offer" ? offer : request;
   const setPickList = pickerSide === "offer" ? setOffer : setRequest;
@@ -230,7 +254,7 @@ export function TradeClient({ items }: { items: Item[] }) {
                     key={`${id}-${idx}`}
                     className="flex items-center gap-3 rounded-lg border p-2"
                   >
-                    <div className="relative h-10 w-16 overflow-hidden rounded bg-muted">
+                    <div className="relative h-10 w-16 shrink-0 overflow-hidden rounded bg-muted">
                       {it.image_url ? (
                         <Image
                           src={it.image_url}
@@ -238,7 +262,7 @@ export function TradeClient({ items }: { items: Item[] }) {
                           fill
                           sizes="64px"
                           referrerPolicy="no-referrer"
-                          className="object-cover"
+                          className="object-contain p-1"
                         />
                       ) : null}
                     </div>
@@ -339,8 +363,8 @@ export function TradeClient({ items }: { items: Item[] }) {
               Add to {pickerSide === "offer" ? "Offer" : "Request"}
             </DialogTitle>
             <DialogDescription>
-              Search by type (gun/knife/glove) and skin name. Example:{" "}
-              <code>m4a1 devil</code>
+              Search by type (gun/knife/glove) and skin name. Click items to select multiple, then Add.
+              Example: <code>m4a1 devil</code>
             </DialogDescription>
           </DialogHeader>
 
@@ -373,17 +397,20 @@ export function TradeClient({ items }: { items: Item[] }) {
                 const dg = getValue(it, "dg_value");
                 const ck = getValue(it, "ck_value");
                 const upg = getValue(it, "upg_value");
+                const selected = pickerSelectedIds.has(it.id);
                 return (
                   <button
                     key={it.id}
                     type="button"
-                    className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-left hover:bg-accent"
-                    onClick={() => {
-                      setPickList([...pickList, it.id]);
-                      setPickerOpen(false);
-                    }}
+                    className={`flex w-full items-center gap-3 rounded-md px-2 py-2 text-left hover:bg-accent ${selected ? "bg-primary/10 ring-1 ring-primary/30" : ""}`}
+                    onClick={() => togglePickerItem(it.id)}
                   >
-                    <div className="relative h-10 w-16 overflow-hidden rounded bg-muted shrink-0">
+                    <div className="relative h-10 w-16 overflow-hidden rounded bg-muted shrink-0 flex items-center justify-center">
+                      {selected ? (
+                        <div className="absolute inset-0 z-10 flex items-center justify-center bg-primary/20">
+                          <Check className="h-6 w-6 text-primary" />
+                        </div>
+                      ) : null}
                       {it.image_url ? (
                         <Image
                           src={it.image_url}
@@ -423,6 +450,40 @@ export function TradeClient({ items }: { items: Item[] }) {
               })}
               </div>
             </ScrollArea>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-4">
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={selectAllInResults}
+              >
+                Select all ({pickerResults.length})
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={clearPickerSelection}
+                disabled={pickerSelectedIds.size === 0}
+              >
+                Clear selection
+              </Button>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">
+                {pickerSelectedIds.size} selected
+              </span>
+              <Button
+                type="button"
+                onClick={addSelectedAndClose}
+                disabled={pickerSelectedIds.size === 0}
+              >
+                Add {pickerSelectedIds.size > 0 ? pickerSelectedIds.size : ""} item{pickerSelectedIds.size !== 1 ? "s" : ""}
+              </Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
