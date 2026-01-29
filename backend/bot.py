@@ -29,6 +29,31 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 # Value field names for DB and display
 VALUE_FIELDS = {"base": "base_value", "dg": "dg_value", "ck": "ck_value", "upg": "upg_value", "status": "status"}
 
+# Autocomplete: list of gun names and gun -> [skin_names] (filled at startup)
+GUNS_LIST: list[str] = []
+SKINS_BY_GUN: dict[str, list[str]] = {}
+AUTOCOMPLETE_MAX = 25
+
+
+def _load_autocomplete_data() -> None:
+    """Load distinct guns and skin names from Supabase for autocomplete."""
+    global GUNS_LIST, SKINS_BY_GUN
+    try:
+        r = supabase.table("items").select("gun, skin_name").execute()
+        if not r.data:
+            return
+        by_gun: dict[str, set[str]] = {}
+        for row in r.data:
+            g = (row.get("gun") or "").strip().lower()
+            s = (row.get("skin_name") or "").strip()
+            if g and s:
+                by_gun.setdefault(g, set()).add(s)
+        GUNS_LIST = sorted(by_gun.keys())
+        SKINS_BY_GUN = {g: sorted(skins) for g, skins in by_gun.items()}
+        logger.info("Autocomplete: %s guns, %s total skins", len(GUNS_LIST), sum(len(s) for s in SKINS_BY_GUN.values()))
+    except Exception as e:
+        logger.warning("Could not load autocomplete data: %s", e)
+
 
 def find_item(gun: str, skin: str) -> Optional[dict]:
     """Find one item by gun + skin_name (case-insensitive)."""
@@ -36,7 +61,9 @@ def find_item(gun: str, skin: str) -> Optional[dict]:
     skin_norm = skin.strip().lower()
     if not gun_norm or not skin_norm:
         return None
-    r = supabase.table("items").select("id, group_name, gun, skin_name, base_value, dg_value, ck_value, upg_value, status").eq("gun", gun_norm).execute()
+    r = supabase.table("items").select(
+        "id, group_name, gun, skin_name, base_value, dg_value, ck_value, upg_value, status, image_url"
+    ).eq("gun", gun_norm).execute()
     if not r.data:
         return None
     for row in r.data:
@@ -52,8 +79,17 @@ def format_value(v) -> str:
 
 
 def build_value_embed(item: dict) -> discord.Embed:
-    title = f"{item['gun'].upper()} · {item['skin_name']}"
-    embed = discord.Embed(title=title, color=discord.Color.blue())
+    gun_display = (item.get("gun") or "").strip()
+    skin_display = (item.get("skin_name") or "").strip()
+    title = f"{gun_display.upper()} · {skin_display}"
+    embed = discord.Embed(
+        title=title,
+        description="Value lookup from SNAEK's demand list",
+        color=discord.Color.blue(),
+    )
+    image_url = (item.get("image_url") or "").strip()
+    if image_url:
+        embed.set_thumbnail(url=image_url)
     embed.add_field(name="Base", value=format_value(item.get("base_value")), inline=True)
     embed.add_field(name="DG", value=format_value(item.get("dg_value")), inline=True)
     embed.add_field(name="CK", value=format_value(item.get("ck_value")), inline=True)
@@ -67,9 +103,36 @@ intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 
+async def gun_autocomplete(_interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
+    """Return guns/knives/gloves that match the current typed string."""
+    current_lower = current.strip().lower()
+    if not GUNS_LIST:
+        return []
+    if not current_lower:
+        return [app_commands.Choice(name=g, value=g) for g in GUNS_LIST[:AUTOCOMPLETE_MAX]]
+    matches = [g for g in GUNS_LIST if current_lower in g][:AUTOCOMPLETE_MAX]
+    return [app_commands.Choice(name=g, value=g) for g in matches]
+
+
+async def skin_autocomplete(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
+    """Return skin names for the selected gun that match the current typed string."""
+    gun = (getattr(interaction.namespace, "gun", None) or "").strip().lower()
+    if not gun:
+        return []
+    skins = SKINS_BY_GUN.get(gun, [])
+    if not skins:
+        return []
+    current_lower = current.strip().lower()
+    if not current_lower:
+        return [app_commands.Choice(name=s, value=s) for s in skins[:AUTOCOMPLETE_MAX]]
+    matches = [s for s in skins if current_lower in s.lower()][:AUTOCOMPLETE_MAX]
+    return [app_commands.Choice(name=s, value=s) for s in matches]
+
+
 @bot.event
 async def on_ready():
     logger.info("Bot ready as %s", bot.user)
+    _load_autocomplete_data()
     try:
         synced = await bot.tree.sync()
         logger.info("Synced %s command(s)", len(synced))
@@ -80,6 +143,7 @@ async def on_ready():
 @bot.tree.command(name="value", description="Look up values for a gun skin (e.g. AK47 Glo)")
 @app_commands.describe(gun="Gun or item type (e.g. ak47, awp, karambit)")
 @app_commands.describe(skin="Skin name (e.g. glo, ace)")
+@app_commands.autocomplete(gun=gun_autocomplete, skin=skin_autocomplete)
 async def value_cmd(interaction: discord.Interaction, gun: str, skin: str):
     await interaction.response.defer(ephemeral=False)
     item = find_item(gun, skin)
@@ -98,6 +162,7 @@ async def value_cmd(interaction: discord.Interaction, gun: str, skin: str):
     field="Which value to set: base, dg, ck, upg, or status",
     value="New value (number or text)",
 )
+@app_commands.autocomplete(gun=gun_autocomplete, skin=skin_autocomplete)
 async def set_cmd(interaction: discord.Interaction, subcommand: str, gun: str, skin: str, field: str, value: str):
     if subcommand.lower() != "value":
         await interaction.response.send_message("Use `/set value <gun> <skin> <field> <value>`. Field: base, dg, ck, upg, status.", ephemeral=True)
