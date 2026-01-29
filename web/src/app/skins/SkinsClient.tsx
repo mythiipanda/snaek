@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 
 import type { Item } from "@/lib/items-types";
+import { parseField } from "@/lib/items-types";
 import { matchesQuery } from "@/lib/search";
 
 function formatVal(v: Item[keyof Item]) {
@@ -44,10 +45,12 @@ export function SkinsClient({ items }: { items: Item[] }) {
     if (sort === "name") {
       sorted.sort((a, b) => a.skin_name.localeCompare(b.skin_name));
     } else {
-      // value sort: base_value desc then name
+      // value sort: base_value (parsed) desc then name
       sorted.sort((a, b) => {
-        const av = typeof a.base_value === "number" ? a.base_value : -1;
-        const bv = typeof b.base_value === "number" ? b.base_value : -1;
+        const pa = parseField(a.base_value as number | string | null | undefined);
+        const pb = parseField(b.base_value as number | string | null | undefined);
+        const av = pa.max ?? pa.min ?? -1;
+        const bv = pb.max ?? pb.min ?? -1;
         if (av !== bv) return bv - av;
         return a.skin_name.localeCompare(b.skin_name);
       });
