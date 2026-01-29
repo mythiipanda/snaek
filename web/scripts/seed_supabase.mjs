@@ -31,7 +31,6 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 
 const dataPath = path.resolve(webDir, "..", "data", "items_with_images.json");
 const STORAGE_BUCKET = "item-images";
-const WIKI_DELAY_MS = 200;
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
@@ -53,10 +52,6 @@ function getExtensionFromUrl(url) {
 /** Sanitize storage path: Supabase rejects [ ] in keys. Use bot_s_ for bot[s]. */
 function storagePathSafe(id) {
   return id.replace(/\[/g, "_").replace(/\]/g, "_").replace(/:/g, "/");
-}
-
-async function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
 }
 
 async function ensureBucket() {
@@ -99,6 +94,21 @@ async function downloadAndUploadImage(item) {
     console.warn("Fetch/upload failed for", item.id, err.message);
     return item;
   }
+}
+
+/** Compare item we would write with existing row; true if no meaningful difference. */
+function itemEquals(item, existing) {
+  if (!existing) return false;
+  const n = (v) => (v == null ? null : Number(v));
+  const s = (v) => (v == null ? "" : String(v).trim());
+  return (
+    n(item.base_value) === n(existing.base_value) &&
+    s(item.dg_value) === s(existing.dg_value) &&
+    s(item.ck_value) === s(existing.ck_value) &&
+    s(item.upg_value) === s(existing.upg_value) &&
+    s(item.status) === s(existing.status) &&
+    s(item.image_url) === s(existing.image_url)
+  );
 }
 
 function flattenItems(parsed) {
@@ -154,42 +164,40 @@ async function main() {
 
   let items = flattenItems(parsed);
 
+  const { data: existingRows } = await supabase.from("items").select("id, base_value, dg_value, ck_value, upg_value, status, image_url");
+  const existingById = {};
+  for (const row of existingRows ?? []) {
+    existingById[row.id] = row;
+  }
+
   if (!SKIP_IMAGE_UPLOAD) {
     await ensureBucket();
-    const { data: existingRows } = await supabase.from("items").select("id, image_url");
-    const existingStorageUrls = {};
-    for (const row of existingRows ?? []) {
-      if (row?.image_url && isOurStorageUrl(row.image_url)) existingStorageUrls[row.id] = row.image_url;
-    }
     const withImages = items.filter((i) => i.image_url && !isOurStorageUrl(i.image_url));
-    const toFetch = withImages.filter((i) => !existingStorageUrls[i.id]);
-    const skipped = withImages.length - toFetch.length;
-    if (skipped) console.log("Skipping", skipped, "images already in Storage.");
-    console.log("Downloading/uploading", toFetch.length, "images to Supabase Storage...");
-    for (let i = 0; i < toFetch.length; i++) {
-      const idx = items.indexOf(toFetch[i]);
+    console.log("Downloading/uploading", withImages.length, "images (refreshing from wiki so changes are picked up)...");
+    for (let i = 0; i < withImages.length; i++) {
+      const idx = items.indexOf(withImages[i]);
       items[idx] = await downloadAndUploadImage(items[idx]);
-      if (i < toFetch.length - 1) await sleep(WIKI_DELAY_MS);
-      process.stdout.write("\r  " + (i + 1) + " / " + toFetch.length);
+      process.stdout.write("\r  " + (i + 1) + " / " + withImages.length);
     }
-    for (const it of withImages) {
-      if (existingStorageUrls[it.id]) items[items.indexOf(it)].image_url = existingStorageUrls[it.id];
-    }
-    if (toFetch.length || skipped) console.log("");
+    console.log("");
   } else {
     console.log("Skipping image upload (SKIP_IMAGE_UPLOAD is set).");
   }
 
-  console.log("Upserting", items.length, "items...");
+  const toUpsert = items.filter((item) => !itemEquals(item, existingById[item.id]));
+  if (toUpsert.length < items.length) {
+    console.log("Skipping", items.length - toUpsert.length, "items unchanged from existing.");
+  }
+  console.log("Upserting", toUpsert.length, "items...");
   const BATCH = 500;
-  for (let i = 0; i < items.length; i += BATCH) {
-    const chunk = items.slice(i, i + BATCH);
+  for (let i = 0; i < toUpsert.length; i += BATCH) {
+    const chunk = toUpsert.slice(i, i + BATCH);
     const { error } = await supabase.from("items").upsert(chunk, { onConflict: "id" });
     if (error) {
       console.error("Items upsert failed at batch", i / BATCH, error.message);
       process.exit(1);
     }
-    process.stdout.write("\r" + Math.min(i + BATCH, items.length) + " / " + items.length);
+    process.stdout.write("\r" + Math.min(i + BATCH, toUpsert.length) + " / " + toUpsert.length);
   }
   console.log("\nDone.");
 }
