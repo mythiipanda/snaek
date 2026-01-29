@@ -26,6 +26,9 @@ if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
+# Owner: only this Discord user can add/remove admins. Owner + admins can use /set.
+OWNER_ID = 470431863316414465
+
 # Value field names for DB and display
 VALUE_FIELDS = {"base": "base_value", "dg": "dg_value", "ck": "ck_value", "upg": "upg_value", "status": "status"}
 
@@ -76,6 +79,26 @@ def format_value(v) -> str:
     if v is None:
         return "—"
     return str(v)
+
+
+def _is_owner(user_id: int) -> bool:
+    return user_id == OWNER_ID
+
+
+def _is_admin_sync(user_id: int) -> bool:
+    """Check if user_id is in the admins table (sync; for use after we have cached or quick check)."""
+    try:
+        r = supabase.table("admins").select("user_id").eq("user_id", str(user_id)).execute()
+        return bool(r.data and len(r.data) > 0)
+    except Exception:
+        return False
+
+
+async def _can_set_values(user_id: int) -> bool:
+    """True if user is owner or listed in admins table."""
+    if _is_owner(user_id):
+        return True
+    return _is_admin_sync(user_id)
 
 
 def build_value_embed(item: dict) -> discord.Embed:
@@ -175,6 +198,12 @@ async def value_cmd(interaction: discord.Interaction, gun: str, skin: str):
 )
 @app_commands.autocomplete(gun=gun_autocomplete, skin=skin_autocomplete, field=field_autocomplete)
 async def set_cmd(interaction: discord.Interaction, gun: str, skin: str, field: str, value: str):
+    if not await _can_set_values(interaction.user.id):
+        await interaction.response.send_message(
+            "You don't have permission to set values. Only the owner and added admins can use `/set`.",
+            ephemeral=True,
+        )
+        return
     field_lower = field.strip().lower()
     if field_lower not in VALUE_FIELDS:
         await interaction.response.send_message(f"Invalid field. Use one of: base, dg, ck, upg, status.", ephemeral=True)
@@ -202,6 +231,71 @@ async def set_cmd(interaction: discord.Interaction, gun: str, skin: str, field: 
         await interaction.followup.send(f"Updated **{item['gun']}** · **{item['skin_name']}** — **{field_lower}** = `{value.strip()}`.", ephemeral=True)
     else:
         await interaction.followup.send("Update may have failed; check Supabase.", ephemeral=True)
+
+
+@bot.tree.command(name="addadmin", description="Add an admin who can use /set (owner only)")
+@app_commands.describe(user="User to grant admin (they will be able to set values)")
+async def addadmin_cmd(interaction: discord.Interaction, user: discord.User):
+    if interaction.user.id != OWNER_ID:
+        await interaction.response.send_message("Only the owner can add admins.", ephemeral=True)
+        return
+    if user.bot:
+        await interaction.response.send_message("Cannot add bots as admins.", ephemeral=True)
+        return
+    if user.id == OWNER_ID:
+        await interaction.response.send_message("The owner is already allowed; no need to add.", ephemeral=True)
+        return
+    try:
+        supabase.table("admins").insert({
+            "user_id": str(user.id),
+            "added_by": str(interaction.user.id),
+        }).execute()
+        await interaction.response.send_message(f"**{user.display_name}** (`{user.id}`) is now an admin and can use `/set`.", ephemeral=True)
+    except Exception as e:
+        if "duplicate" in str(e).lower() or "unique" in str(e).lower():
+            await interaction.response.send_message(f"**{user.display_name}** is already an admin.", ephemeral=True)
+        else:
+            logger.exception("addadmin failed: %s", e)
+            await interaction.response.send_message("Failed to add admin. Check logs.", ephemeral=True)
+
+
+@bot.tree.command(name="removeadmin", description="Remove an admin (owner only)")
+@app_commands.describe(user="User to remove admin from")
+async def removeadmin_cmd(interaction: discord.Interaction, user: discord.User):
+    if interaction.user.id != OWNER_ID:
+        await interaction.response.send_message("Only the owner can remove admins.", ephemeral=True)
+        return
+    try:
+        r = supabase.table("admins").delete().eq("user_id", str(user.id)).execute()
+        deleted = r.data if r.data is not None else []
+        if len(deleted) > 0:
+            await interaction.response.send_message(f"**{user.display_name}** is no longer an admin.", ephemeral=True)
+        else:
+            await interaction.response.send_message(f"**{user.display_name}** was not in the admin list.", ephemeral=True)
+    except Exception as e:
+        logger.exception("removeadmin failed: %s", e)
+        await interaction.response.send_message("Failed to remove admin. Check logs.", ephemeral=True)
+
+
+@bot.tree.command(name="listadmins", description="List users who can use /set (owner only)")
+async def listadmins_cmd(interaction: discord.Interaction):
+    if interaction.user.id != OWNER_ID:
+        await interaction.response.send_message("Only the owner can list admins.", ephemeral=True)
+        return
+    try:
+        r = supabase.table("admins").select("user_id, added_by, created_at").order("created_at").execute()
+        rows = r.data or []
+    except Exception as e:
+        logger.exception("listadmins failed: %s", e)
+        await interaction.response.send_message("Failed to load admins. Ensure the `admins` table exists (run supabase_admins.sql in Supabase).", ephemeral=True)
+        return
+    lines = ["**Owner** (you): can use `/set`, add/remove admins."]
+    for row in rows:
+        uid = row.get("user_id") or ""
+        lines.append(f"• Admin: `{uid}` (added by `{row.get('added_by', '')}`)")
+    if len(lines) == 1:
+        lines.append("_No other admins._")
+    await interaction.response.send_message("\n".join(lines), ephemeral=True)
 
 
 def main():
