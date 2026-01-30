@@ -4,8 +4,8 @@ Discord bot (discord.py) for value lookup and updating item values. Uses the sam
 
 ## Commands
 
-- **`/value <gun> <skin>`** — Look up values for a skin (e.g. `/value ak47 glo`). Shows base, DG, CK, upg, and status. Anyone can use.
-- **`/set <gun> <skin> <field> <value>`** — Set a value field for a skin (owner and added admins only). Field: `base`, `dg`, `ck`, `upg`, or `status`.
+- **`/value <weapon> <skin>`** — Look up values for a skin (e.g. AK47 Glo, Karambit Glossed, Handwraps Ghoul Hex). Shows base, DG, CK, upg, and status. Anyone can use.
+- **`/set <weapon> <skin> <field> <value>`** — Set a value field for a skin (owner and added admins only). Field: `base`, `dg`, `ck`, `upg`, or `status`.
 - **`/addadmin <user>`** — Add a user as admin so they can use `/set` (owner only).
 - **`/removeadmin <user>`** — Remove a user from admins (owner only).
 - **`/listadmins`** — List who can use `/set` (owner only).

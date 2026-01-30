@@ -80,10 +80,65 @@ def find_item(gun: str, skin: str) -> Optional[dict]:
     return None
 
 
-def format_value(v) -> str:
-    if v is None:
+def format_compact_number(n: float) -> str:
+    """Format with k/M suffix: 1000 -> 1k, 1100 -> 1.1k, 1500000 -> 1.5M."""
+    if not isinstance(n, (int, float)) or (isinstance(n, float) and not (n == n)):  # NaN check
         return "—"
-    return str(v)
+    try:
+        num = float(n)
+    except (TypeError, ValueError):
+        return "—"
+    if not (num == num):  # NaN
+        return "—"
+    abs_n = abs(num)
+    if abs_n >= 1_000_000:
+        v = num / 1_000_000
+        s = str(int(round(v))) if v % 1 == 0 else f"{v:.1f}".rstrip("0").rstrip(".")
+        return f"{s}M"
+    if abs_n >= 1_000:
+        v = num / 1_000
+        s = str(int(round(v))) if v % 1 == 0 else f"{v:.1f}".rstrip("0").rstrip(".")
+        return f"{s}k"
+    return str(int(num)) if num == int(num) else f"{num:.1f}"
+
+
+def format_value_display(v) -> str:
+    """Format a value for embed: compact numbers (1k, 1.1k, 1.5M), ranges, or raw text."""
+    if v is None or v == "":
+        return "—"
+    # Numeric (int/float)
+    if isinstance(v, (int, float)) and (v == v):
+        return format_compact_number(float(v))
+    s = str(v).strip()
+    if not s:
+        return "—"
+    # String that is a plain number
+    try:
+        num = float(s)
+        if num == num:
+            return format_compact_number(num)
+    except ValueError:
+        pass
+    # Range "min-max" or "min-max+"
+    if "-" in s and "+" not in s:
+        parts = s.split("-", 1)
+        if len(parts) == 2:
+            try:
+                lo, hi = float(parts[0].strip()), float(parts[1].strip())
+                if lo == lo and hi == hi:
+                    return f"{format_compact_number(lo)}–{format_compact_number(hi)}"
+            except ValueError:
+                pass
+    if s.endswith("+"):
+        inner = s[:-1].strip()
+        try:
+            num = float(inner)
+            if num == num:
+                return format_compact_number(num) + "+"
+        except ValueError:
+            pass
+    # Non-numeric (e.g. status "Good")
+    return s
 
 
 def _is_owner(user_id: int) -> bool:
@@ -124,23 +179,49 @@ def build_value_embed(item: dict) -> discord.Embed:
     title = f"{gun_display.upper()} · {skin_display}"
     embed = discord.Embed(
         title=title,
-        description="Value lookup from SNAEK's demand list",
         color=discord.Color.blue(),
     )
+    embed.set_author(name="Snaek's Value List", icon_url=None)
     image_url = (item.get("image_url") or "").strip()
     if image_url:
-        embed.set_thumbnail(url=image_url)
-    embed.add_field(name="Base", value=format_value(item.get("base_value")), inline=True)
-    embed.add_field(name="DG", value=format_value(item.get("dg_value")), inline=True)
-    embed.add_field(name="CK", value=format_value(item.get("ck_value")), inline=True)
-    embed.add_field(name="Upg", value=format_value(item.get("upg_value")), inline=True)
-    embed.add_field(name="Status", value=format_value(item.get("status")), inline=True)
-    embed.add_field(name="Last updated", value=format_updated_at(item.get("updated_at")), inline=True)
+        embed.set_image(url=image_url)
+    embed.add_field(name="Base Value", value=f"**{format_value_display(item.get('base_value'))}**", inline=True)
+    embed.add_field(name="DG Value", value=f"**{format_value_display(item.get('dg_value'))}**", inline=True)
+    embed.add_field(name="CK Value", value=f"**{format_value_display(item.get('ck_value'))}**", inline=True)
+    embed.add_field(name="UPG Value", value=f"**{format_value_display(item.get('upg_value'))}**", inline=True)
+    embed.add_field(name="Status", value=f"**{format_value_display(item.get('status'))}**", inline=True)
+    embed.add_field(name="Last updated", value=f"**{format_updated_at(item.get('updated_at'))}**", inline=True)
     embed.set_footer(text="DM mythiipanda for features/bugs")
     return embed
 
 
+# Display names for value fields (set confirmation embed)
+FIELD_DISPLAY_NAMES = {
+    "base": "Base Value",
+    "dg": "DG Value",
+    "ck": "CK Value",
+    "upg": "UPG Value",
+    "status": "Status",
+}
+
 VALUE_LIST_URL = "https://snaekvaluelist.netlify.app/"
+
+
+def build_set_success_embed(item: dict, field_key: str, previous_value, new_value_display) -> discord.Embed:
+    """Build a clean embed for /set confirmation showing previous vs new value."""
+    gun_display = (item.get("gun") or "").strip()
+    skin_display = (item.get("skin_name") or "").strip()
+    field_name = FIELD_DISPLAY_NAMES.get(field_key, field_key)
+    embed = discord.Embed(
+        title="Value updated",
+        description=f"**{gun_display.upper()} · {skin_display}**",
+        color=discord.Color.green(),
+    )
+    embed.set_author(name="Snaek's Value List", icon_url=None)
+    embed.add_field(name="Field", value=field_name, inline=False)
+    embed.add_field(name="Previous", value=format_value_display(previous_value), inline=True)
+    embed.add_field(name="New", value=new_value_display, inline=True)
+    return embed
 
 
 def build_link_view() -> discord.ui.View:
@@ -173,11 +254,11 @@ async def gun_autocomplete(_interaction: discord.Interaction, current: str) -> l
 
 
 async def skin_autocomplete(interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
-    """Return skin names for the selected gun that match the current typed string."""
-    gun = (getattr(interaction.namespace, "gun", None) or "").strip().lower()
-    if not gun:
+    """Return skin names for the selected weapon that match the current typed string."""
+    weapon = (getattr(interaction.namespace, "weapon", None) or "").strip().lower()
+    if not weapon:
         return []
-    skins = SKINS_BY_GUN.get(gun, [])
+    skins = SKINS_BY_GUN.get(weapon, [])
     if not skins:
         return []
     current_lower = current.strip().lower()
@@ -210,29 +291,29 @@ async def on_ready():
         logger.exception("Failed to sync commands: %s", e)
 
 
-@bot.tree.command(name="value", description="Look up values for a gun skin (e.g. AK47 Glo)")
-@app_commands.describe(gun="Gun or item type (e.g. ak47, awp, karambit)")
-@app_commands.describe(skin="Skin name (e.g. glo, ace)")
-@app_commands.autocomplete(gun=gun_autocomplete, skin=skin_autocomplete)
-async def value_cmd(interaction: discord.Interaction, gun: str, skin: str):
+@bot.tree.command(name="value", description="Look up values for a skin (e.g. AK47 Glo, Karambit Glossed, Handwraps Ghoul Hex)")
+@app_commands.describe(weapon="Weapon or item type (e.g. ak47, karambit, handwraps)")
+@app_commands.describe(skin="Skin name (e.g. glo, glossed, ghoul hex)")
+@app_commands.autocomplete(weapon=gun_autocomplete, skin=skin_autocomplete)
+async def value_cmd(interaction: discord.Interaction, weapon: str, skin: str):
     await interaction.response.defer(ephemeral=False)
-    item = find_item(gun, skin)
+    item = find_item(weapon, skin)
     if not item:
-        await interaction.followup.send(f"No item found for **{gun}** / **{skin}**. Check spelling and try again.", ephemeral=True)
+        await interaction.followup.send(f"No item found for **{weapon}** / **{skin}**. Check spelling and try again.", ephemeral=True)
         return
     embed = build_value_embed(item)
     await interaction.followup.send(embed=embed, view=build_link_view())
 
 
-@bot.tree.command(name="set", description="Set a value field for a gun skin (base/dg/ck/upg/status)")
+@bot.tree.command(name="set", description="Set a value field for a skin (base/dg/ck/upg/status)")
 @app_commands.describe(
-    gun="Gun or item type (e.g. ak47)",
-    skin="Skin name (e.g. glo)",
+    weapon="Weapon or item type (e.g. ak47, karambit, handwraps)",
+    skin="Skin name (e.g. glo, glossed, ghoul hex)",
     field="Which value to set: base, dg, ck, upg, or status",
     value="New value (number or text)",
 )
-@app_commands.autocomplete(gun=gun_autocomplete, skin=skin_autocomplete, field=field_autocomplete)
-async def set_cmd(interaction: discord.Interaction, gun: str, skin: str, field: str, value: str):
+@app_commands.autocomplete(weapon=gun_autocomplete, skin=skin_autocomplete, field=field_autocomplete)
+async def set_cmd(interaction: discord.Interaction, weapon: str, skin: str, field: str, value: str):
     if not await _can_set_values(interaction.user.id):
         await interaction.response.send_message(
             "You don't have permission to set values. Only the owner and added admins can use `/set`.",
@@ -244,9 +325,9 @@ async def set_cmd(interaction: discord.Interaction, gun: str, skin: str, field: 
         await interaction.response.send_message(f"Invalid field. Use one of: base, dg, ck, upg, status.", ephemeral=True)
         return
     await interaction.response.defer(ephemeral=True)
-    item = find_item(gun, skin)
+    item = find_item(weapon, skin)
     if not item:
-        await interaction.followup.send(f"No item found for **{gun}** / **{skin}**.", ephemeral=True)
+        await interaction.followup.send(f"No item found for **{weapon}** / **{skin}**.", ephemeral=True)
         return
     col = VALUE_FIELDS[field_lower]
     # Normalize value for base_value (numeric) vs others (string)
@@ -262,9 +343,14 @@ async def set_cmd(interaction: discord.Interaction, gun: str, skin: str, field: 
     else:
         payload = {col: value.strip() or None}
     payload["updated_at"] = datetime.now(timezone.utc).isoformat()
+    previous_value = item.get(col)
     upd = supabase.table("items").update(payload).eq("id", item["id"]).execute()
     if upd.data:
-        await interaction.followup.send(f"Updated **{item['gun']}** · **{item['skin_name']}** — **{field_lower}** = `{value.strip()}`.", ephemeral=True)
+        # New value for display: use compact format for numbers
+        new_raw = payload.get(col)
+        new_display = format_value_display(new_raw)
+        embed = build_set_success_embed(item, field_lower, previous_value, new_display)
+        await interaction.followup.send(embed=embed, ephemeral=True)
     else:
         await interaction.followup.send("Update may have failed; check Supabase.", ephemeral=True)
 
