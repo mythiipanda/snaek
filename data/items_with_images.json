@@ -9,7 +9,7 @@
       "TSTHAS": "Too Small To Have A Status",
       "value_types": {
         "ck_value": "Case Knife value",
-        "dg_value": "Downgrade value (rares)",
+        "dg_value": "Duels/Gamemodes value (rares)",
         "upg_value": "Upgrade value (rares)",
         "base_value": "Standard/Base value"
       },
@@ -5934,8 +5934,8 @@
       {
         "skin_name": "Purple Hex",
         "base_value": 19000,
-        "dg_value": "22k+",
-        "ck_value": "44k+",
+        "dg_value": "22000+",
+        "ck_value": "44000+",
         "upg_value": 19000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/d5/Handwraps_Purple_Hex.png/revision/latest?cb=20251123123648"
@@ -5961,8 +5961,8 @@
       {
         "skin_name": "Orange Hex",
         "base_value": 13000,
-        "dg_value": "14k+",
-        "ck_value": "28k+",
+        "dg_value": "14000+",
+        "ck_value": "28000+",
         "upg_value": 13000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/d9/Handwraps_Orange_Hex.png/revision/latest?cb=20251123123647"
@@ -6044,8 +6044,8 @@
       {
         "skin_name": "Cottontail",
         "base_value": 47000,
-        "dg_value": "50k+",
-        "ck_value": "100k+",
+        "dg_value": "50000+",
+        "ck_value": "100000+",
         "upg_value": 47000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/2/23/Sports_Gloves_Cottontails.png/revision/latest?cb=20251123124653"
@@ -6080,8 +6080,8 @@
       {
         "skin_name": "Hallows",
         "base_value": 300000,
-        "dg_value": "300k+",
-        "ck_value": "600k+",
+        "dg_value": "300000+",
+        "ck_value": "600000+",
         "upg_value": 300000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/30/Sports_Gloves_Hallows.png/revision/latest?cb=20251123124537"
@@ -6143,8 +6143,8 @@
       {
         "skin_name": "Twitch",
         "base_value": 350000,
-        "dg_value": "380k+",
-        "ck_value": "760k+",
+        "dg_value": "380000+",
+        "ck_value": "760000+",
         "upg_value": "Alot of mixed opinions",
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/e6/Sports_Gloves_Twitch.png/revision/latest?cb=20251127223822"
