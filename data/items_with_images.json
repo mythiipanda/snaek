@@ -8,10 +8,10 @@
       "CKS": "Case Knives (items that can be unboxed from cases)",
       "TSTHAS": "Too Small To Have A Status",
       "value_types": {
-        "base_value": "Standard/Base value",
-        "dg_value": "Duels/Gamemodes value (rares)",
         "ck_value": "Case Knife value",
-        "upg_value": "Upgrade value (rares)"
+        "dg_value": "Downgrade value (rares)",
+        "upg_value": "Upgrade value (rares)",
+        "base_value": "Standard/Base value"
       },
       "status_types": [
         "Good",
@@ -2614,7 +2614,7 @@
       },
       {
         "skin_name": "Winterfall",
-        "base_value": "700-750",
+        "base_value": null,
         "dg_value": 750,
         "ck_value": "1400-1500",
         "upg_value": 750,
@@ -3296,10 +3296,10 @@
       },
       {
         "skin_name": "Kitty Cat",
-        "base_value": 1400,
-        "dg_value": "1400-1600",
-        "ck_value": 2800,
-        "upg_value": 1400,
+        "base_value": 1500,
+        "dg_value": "1500-1600",
+        "ck_value": "3000-3200",
+        "upg_value": 1500,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/b/b4/SG_Kitty_Cat.png/revision/latest?cb=20251229224249"
       },
@@ -3777,10 +3777,10 @@
       {
         "skin_name": "Boreal",
         "base_value": 1200,
-        "dg_value": 1200,
-        "ck_value": 2400,
-        "upg_value": 1200,
-        "status": "Decent",
+        "dg_value": "1000-1200",
+        "ck_value": "2000-2400",
+        "upg_value": 1000,
+        "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/e/e2/Bayonet_Boreal.png/revision/latest?cb=20251228150153"
       },
       {
@@ -3840,9 +3840,9 @@
       {
         "skin_name": "Dark Damascus",
         "base_value": 400,
-        "dg_value": 300,
-        "ck_value": 600,
-        "upg_value": 300,
+        "dg_value": 200,
+        "ck_value": 400,
+        "upg_value": 200,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/c4/Bayonet_Dark_Damascus.png/revision/latest?cb=20260101210509"
       },
@@ -4242,9 +4242,9 @@
       {
         "skin_name": "Dark Damascus",
         "base_value": 1000,
-        "dg_value": 600,
-        "ck_value": 1200,
-        "upg_value": 600,
+        "dg_value": 500,
+        "ck_value": 1000,
+        "upg_value": 500,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/a/a9/Butterfly_Dark_Damascus.png/revision/latest?cb=20260101210324"
       },
@@ -4278,10 +4278,10 @@
       {
         "skin_name": "Frozen Gift",
         "base_value": 1300,
-        "dg_value": 1300,
-        "ck_value": 2600,
-        "upg_value": 1300,
-        "status": "Decent",
+        "dg_value": "1100-1300",
+        "ck_value": "2200-2600",
+        "upg_value": 1100,
+        "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/f/f7/Butterfly_Frozen_Gift.png/revision/latest?cb=20251228144612"
       },
       {
@@ -4597,18 +4597,18 @@
       {
         "skin_name": "Christmas Steel",
         "base_value": 1100,
-        "dg_value": 1100,
-        "ck_value": 2200,
-        "upg_value": 1100,
+        "dg_value": "900-1100",
+        "ck_value": "1800-2200",
+        "upg_value": 900,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/8c/Falchion_Frozen_Gift.png/revision/latest?cb=20251228145538"
       },
       {
         "skin_name": "Dark Damascus",
         "base_value": 600,
-        "dg_value": 400,
-        "ck_value": 800,
-        "upg_value": 400,
+        "dg_value": 300,
+        "ck_value": 600,
+        "upg_value": 300,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/f/f5/Falchion_Dark_Damascus.png/revision/latest?cb=20251127190530"
       },
@@ -5186,9 +5186,9 @@
       {
         "skin_name": "Dark Damascus",
         "base_value": 300,
-        "dg_value": 200,
-        "ck_value": 400,
-        "upg_value": 200,
+        "dg_value": 150,
+        "ck_value": 300,
+        "upg_value": 150,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/c/ce/Huntsman_Dark_Damascus.png/revision/latest?cb=20251127191600"
       },
@@ -5449,9 +5449,9 @@
       {
         "skin_name": "Dark Damascus",
         "base_value": 800,
-        "dg_value": 500,
-        "ck_value": 1000,
-        "upg_value": 500,
+        "dg_value": 400,
+        "ck_value": 800,
+        "upg_value": 400,
         "status": "Bad",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/8/8b/Karambit_Dark_Damascus.png/revision/latest?cb=20251127180836"
       },
@@ -5503,10 +5503,10 @@
       {
         "skin_name": "Frozen Gift",
         "base_value": 1200,
-        "dg_value": 1200,
-        "ck_value": 2400,
-        "upg_value": 1200,
-        "status": "Decent",
+        "dg_value": "1000-1200",
+        "ck_value": "2000-2400",
+        "upg_value": 1000,
+        "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/2/26/Karambit_Frozen_Gift.png/revision/latest?cb=20251228144903"
       },
       {
@@ -5757,8 +5757,8 @@
       {
         "skin_name": "Splattered",
         "base_value": 10000,
-        "dg_value": 11000,
-        "ck_value": 22000,
+        "dg_value": 10500,
+        "ck_value": 21000,
         "upg_value": 10000,
         "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/df/Sickle_Splattered.png/revision/latest?cb=20251123113635"
@@ -5766,8 +5766,8 @@
       {
         "skin_name": "Stock",
         "base_value": 9500,
-        "dg_value": 10500,
-        "ck_value": 21000,
+        "dg_value": 10000,
+        "ck_value": 20000,
         "upg_value": 9500,
         "status": "Decent",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/f/fc/Sickle_Stock.png/revision/latest?cb=20251123113636"
@@ -5859,7 +5859,7 @@
       },
       {
         "skin_name": "Scapter",
-        "base_value": "u cant afford it bro",
+        "base_value": null,
         "dg_value": "u cant afford it bro",
         "ck_value": "u cant afford it bro",
         "upg_value": "too big of an item",
@@ -5907,10 +5907,10 @@
       {
         "skin_name": "Gilded",
         "base_value": 1500,
-        "dg_value": 1500,
-        "ck_value": 3000,
-        "upg_value": 1500,
-        "status": "Mid/Decent",
+        "dg_value": "1300-1500",
+        "ck_value": "2600-3000",
+        "upg_value": 1300,
+        "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/d/df/Handwraps_Gilded.png/revision/latest?cb=20251228151116"
       },
       {
@@ -5973,7 +5973,7 @@
         "dg_value": 300,
         "ck_value": 600,
         "upg_value": 300,
-        "status": "Decent",
+        "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/4/4f/Tape.png/revision/latest?cb=20251219185758"
       },
       {
@@ -6038,7 +6038,7 @@
         "dg_value": "3000-3500",
         "ck_value": "6000-7000",
         "upg_value": 3000,
-        "status": "Decent",
+        "status": "Good",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/9/97/Sports_Gloves_Blood_Web.png/revision/latest?cb=20251124013332"
       },
       {
@@ -6164,7 +6164,7 @@
         "dg_value": 300,
         "ck_value": 600,
         "upg_value": 300,
-        "status": "Decent",
+        "status": "Mid",
         "image_url": "https://static.wikia.nocookie.net/counter-blox/images/3/39/Mud.png/revision/latest?cb=20251219154921"
       },
       {
