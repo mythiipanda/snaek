@@ -3,8 +3,12 @@ Snaek Discord bot: value lookup and set value via slash commands.
 Uses Supabase for data (same DB as the web app).
 """
 
+import asyncio
 import os
+import signal
 import logging
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from typing import Optional
 
 import discord
@@ -298,10 +302,47 @@ async def listadmins_cmd(interaction: discord.Interaction):
     await interaction.response.send_message("\n".join(lines), ephemeral=True)
 
 
+def _start_health_server_if_needed() -> None:
+    """If PORT is set (e.g. Azure App Service), run a minimal HTTP server so health checks succeed."""
+    port_str = os.environ.get("PORT")
+    if not port_str:
+        return
+    try:
+        port = int(port_str)
+    except ValueError:
+        return
+
+    class _HealthHandler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"ok")
+        def log_message(self, *args):  # noqa: N802
+            pass
+
+    def serve():
+        with HTTPServer(("", port), _HealthHandler) as httpd:
+            httpd.serve_forever()
+
+    t = threading.Thread(target=serve, daemon=True)
+    t.start()
+    logger.info("Health server listening on port %s", port)
+
+
 def main():
     token = os.environ.get("DISCORD_TOKEN")
     if not token:
         raise RuntimeError("Set DISCORD_TOKEN in .env")
+
+    # Graceful shutdown when Azure (or other host) sends SIGTERM
+    def _on_sigterm(*_args):
+        logger.info("SIGTERM received, closing bot")
+        asyncio.run_coroutine_threadsafe(bot.close(), bot.loop)
+
+    signal.signal(signal.SIGTERM, _on_sigterm)
+
+    _start_health_server_if_needed()
     bot.run(token)
 
 
