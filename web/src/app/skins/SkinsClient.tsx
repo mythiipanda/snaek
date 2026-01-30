@@ -1,10 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getStatusOverlayClasses } from "@/lib/status-color";
+import { Slider } from "@/components/ui/slider";
+import { getStatusOverlayClasses, getStatusTier } from "@/lib/status-color";
 import {
   Select,
   SelectContent,
@@ -14,7 +17,7 @@ import {
 } from "@/components/ui/select";
 
 import type { Item } from "@/lib/items-types";
-import { formatParsedValueCompact, parseField } from "@/lib/items-types";
+import { formatParsedValueCompact, formatValueCompact, parseField } from "@/lib/items-types";
 import { matchesQuery } from "@/lib/search";
 
 function formatVal(v: number | string | null | undefined) {
@@ -43,7 +46,129 @@ function SkinStatusOverlay({ status }: { status: string | null | undefined }) {
 export function SkinsClient({ items }: { items: Item[] }) {
   const [query, setQuery] = useState("");
   const [gun, setGun] = useState<string>("all");
-   const [sort, setSort] = useState<"name" | "value">("value");
+  const [sort, setSort] = useState<"name" | "value" | "status">("value");
+  const [showRangeFilters, setShowRangeFilters] = useState(false);
+
+  // Calculate min/max values for slider
+  const { minValue, maxValue } = useMemo(() => {
+    let min = Infinity;
+    let max = -Infinity;
+    for (const it of items) {
+      const pv = parseField(it.base_value as number | string | null | undefined);
+      const itemMin = pv.min ?? pv.max ?? null;
+      const itemMax = pv.max ?? pv.min ?? null;
+      if (itemMin != null && Number.isFinite(itemMin)) {
+        min = Math.min(min, itemMin);
+        max = Math.max(max, itemMin);
+      }
+      if (itemMax != null && Number.isFinite(itemMax)) {
+        min = Math.min(min, itemMax);
+        max = Math.max(max, itemMax);
+      }
+    }
+    return {
+      minValue: Number.isFinite(min) ? min : 0,
+      maxValue: Number.isFinite(max) ? max : 1000000,
+    };
+  }, [items]);
+
+  const [valueRange, setValueRange] = useState<number[]>([0, 1000000]);
+  const [minInput, setMinInput] = useState<string>("");
+  const [maxInput, setMaxInput] = useState<string>("");
+
+  // Update valueRange when min/max values are calculated
+  useEffect(() => {
+    setValueRange([minValue, maxValue]);
+    setMinInput(formatValueCompact(minValue));
+    setMaxInput(formatValueCompact(maxValue));
+  }, [minValue, maxValue]);
+
+  // Sync input fields when slider changes (user drags slider)
+  // Use a ref to track if user is currently editing inputs
+  const [isEditingMin, setIsEditingMin] = useState(false);
+  const [isEditingMax, setIsEditingMax] = useState(false);
+
+  useEffect(() => {
+    if (!isEditingMin) {
+      setMinInput(formatValueCompact(valueRange[0]));
+    }
+  }, [valueRange[0], isEditingMin]);
+
+  useEffect(() => {
+    if (!isEditingMax) {
+      setMaxInput(formatValueCompact(valueRange[1]));
+    }
+  }, [valueRange[1], isEditingMax]);
+
+  // Parse compact format back to number (e.g., "1.5k" -> 1500, "2M" -> 2000000)
+  function parseCompactValue(str: string): number | null {
+    const trimmed = str.trim().toLowerCase();
+    if (!trimmed) return null;
+    
+    // Remove commas and spaces
+    const cleaned = trimmed.replace(/[, ]/g, "");
+    
+    // Handle K suffix (case insensitive)
+    const kMatch = cleaned.match(/^([\d.]+)\s*k$/);
+    if (kMatch) {
+      const num = Number.parseFloat(kMatch[1]);
+      if (Number.isFinite(num)) return num * 1000;
+    }
+    
+    // Handle M suffix (case insensitive)
+    const mMatch = cleaned.match(/^([\d.]+)\s*m$/);
+    if (mMatch) {
+      const num = Number.parseFloat(mMatch[1]);
+      if (Number.isFinite(num)) return num * 1000000;
+    }
+    
+    // Regular number (with or without commas)
+    const numStr = cleaned.replace(/,/g, "");
+    const num = Number.parseFloat(numStr);
+    return Number.isFinite(num) ? num : null;
+  }
+
+  function handleMinInputChange(value: string) {
+    setIsEditingMin(true);
+    setMinInput(value);
+    const parsed = parseCompactValue(value);
+    if (parsed != null && parsed >= minValue && parsed <= valueRange[1]) {
+      setValueRange([parsed, valueRange[1]]);
+    }
+  }
+
+  function handleMaxInputChange(value: string) {
+    setIsEditingMax(true);
+    setMaxInput(value);
+    const parsed = parseCompactValue(value);
+    if (parsed != null && parsed <= maxValue && parsed >= valueRange[0]) {
+      setValueRange([valueRange[0], parsed]);
+    }
+  }
+
+  function handleMinInputBlur() {
+    setIsEditingMin(false);
+    const parsed = parseCompactValue(minInput);
+    if (parsed == null || parsed < minValue || parsed > valueRange[1]) {
+      // Reset to current slider value
+      setMinInput(formatValueCompact(valueRange[0]));
+    } else {
+      // Format the valid value
+      setMinInput(formatValueCompact(parsed));
+    }
+  }
+
+  function handleMaxInputBlur() {
+    setIsEditingMax(false);
+    const parsed = parseCompactValue(maxInput);
+    if (parsed == null || parsed > maxValue || parsed < valueRange[0]) {
+      // Reset to current slider value
+      setMaxInput(formatValueCompact(valueRange[1]));
+    } else {
+      // Format the valid value
+      setMaxInput(formatValueCompact(parsed));
+    }
+  }
 
   const guns = useMemo(() => {
     const set = new Set<string>();
@@ -54,12 +179,44 @@ export function SkinsClient({ items }: { items: Item[] }) {
   const filtered = useMemo(() => {
     const base = items.filter((it) => {
       if (gun !== "all" && it.gun !== gun) return false;
-      return matchesQuery({ typeKey: it.gun, skinName: it.skin_name }, query);
+      if (!matchesQuery({ typeKey: it.gun, skinName: it.skin_name }, query)) return false;
+      
+      // Filter by value range
+      const pv = parseField(it.base_value as number | string | null | undefined);
+      const itemMin = pv.min ?? pv.max ?? null;
+      const itemMax = pv.max ?? pv.min ?? null;
+      if (itemMin != null && Number.isFinite(itemMin) && itemMax != null && Number.isFinite(itemMax)) {
+        // Item has a range - check if it overlaps with filter range
+        if (itemMax < valueRange[0] || itemMin > valueRange[1]) return false;
+      } else if (itemMin != null && Number.isFinite(itemMin)) {
+        // Single value
+        if (itemMin < valueRange[0] || itemMin > valueRange[1]) return false;
+      } else {
+        // No valid value - exclude if filtering is active
+        if (valueRange[0] !== minValue || valueRange[1] !== maxValue) return false;
+      }
+      
+      return true;
     });
 
     const sorted = [...base];
     if (sort === "name") {
       sorted.sort((a, b) => a.skin_name.localeCompare(b.skin_name));
+    } else if (sort === "status") {
+      // status sort: by tier (good > decent > mid > bad > neutral), then by status name, then by name
+      const tierOrder: Record<string, number> = { good: 0, decent: 1, mid: 2, bad: 3, neutral: 4 };
+      sorted.sort((a, b) => {
+        const aTier = getStatusTier(a.status);
+        const bTier = getStatusTier(b.status);
+        const aTierOrder = tierOrder[aTier] ?? 4;
+        const bTierOrder = tierOrder[bTier] ?? 4;
+        if (aTierOrder !== bTierOrder) return aTierOrder - bTierOrder;
+        const aStatus = a.status ?? "";
+        const bStatus = b.status ?? "";
+        const statusCmp = aStatus.localeCompare(bStatus);
+        if (statusCmp !== 0) return statusCmp;
+        return a.skin_name.localeCompare(b.skin_name);
+      });
     } else {
       // value sort: use range (max then min) desc, then name
       sorted.sort((a, b) => {
@@ -76,7 +233,7 @@ export function SkinsClient({ items }: { items: Item[] }) {
     }
 
     return sorted;
-  }, [items, query, gun, sort]);
+  }, [items, query, gun, sort, valueRange, minValue, maxValue]);
 
   return (
     <div className="grid gap-4">
@@ -108,17 +265,75 @@ export function SkinsClient({ items }: { items: Item[] }) {
               ))}
             </SelectContent>
           </Select>
-          <Select value={sort} onValueChange={(v) => setSort(v as "name" | "value")}>
+          <Select value={sort} onValueChange={(v) => setSort(v as "name" | "value" | "status")}>
             <SelectTrigger className="sm:w-40">
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="value">By value</SelectItem>
               <SelectItem value="name">A–Z</SelectItem>
+              <SelectItem value="status">By status</SelectItem>
             </SelectContent>
           </Select>
+          <Button
+            variant="outline"
+            size="default"
+            onClick={() => setShowRangeFilters(!showRangeFilters)}
+            className="sm:w-auto"
+          >
+            Range Filters
+            <ChevronDown
+              className={`h-4 w-4 transition-transform ${showRangeFilters ? "rotate-180" : ""}`}
+            />
+          </Button>
         </div>
       </div>
+
+      {/* Value Range Slider - Collapsible */}
+      {showRangeFilters && (
+        <div className="rounded-lg border border-border/60 bg-card p-4 shadow-sm">
+          <div className="mb-4 flex items-center gap-3">
+            <div className="flex-1">
+              <Slider
+                value={valueRange}
+                onValueChange={setValueRange}
+                min={minValue}
+                max={maxValue}
+                step={Math.max(1, Math.floor((maxValue - minValue) / 1000))}
+                className="w-full"
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-medium text-muted-foreground whitespace-nowrap">Min</label>
+              <Input
+                type="text"
+                value={minInput}
+                onChange={(e) => handleMinInputChange(e.target.value)}
+                onBlur={handleMinInputBlur}
+                className="w-24 text-sm tabular-nums"
+                placeholder={formatValueCompact(minValue)}
+              />
+            </div>
+            <span className="text-sm text-muted-foreground">–</span>
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-medium text-muted-foreground whitespace-nowrap">Max</label>
+              <Input
+                type="text"
+                value={maxInput}
+                onChange={(e) => handleMaxInputChange(e.target.value)}
+                onBlur={handleMaxInputBlur}
+                className="w-24 text-sm tabular-nums"
+                placeholder={formatValueCompact(maxValue)}
+              />
+            </div>
+            <div className="ml-auto text-xs text-muted-foreground tabular-nums">
+              {formatValueCompact(valueRange[0])} – {formatValueCompact(valueRange[1])}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filtered.map((it) => (
