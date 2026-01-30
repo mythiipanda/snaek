@@ -8,6 +8,7 @@ import os
 import signal
 import logging
 import threading
+from datetime import datetime, timezone
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from typing import Optional
 
@@ -69,7 +70,7 @@ def find_item(gun: str, skin: str) -> Optional[dict]:
     if not gun_norm or not skin_norm:
         return None
     r = supabase.table("items").select(
-        "id, group_name, gun, skin_name, base_value, dg_value, ck_value, upg_value, status, image_url"
+        "id, group_name, gun, skin_name, base_value, dg_value, ck_value, upg_value, status, image_url, updated_at"
     ).eq("gun", gun_norm).execute()
     if not r.data:
         return None
@@ -105,6 +106,18 @@ async def _can_set_values(user_id: int) -> bool:
     return _is_admin_sync(user_id)
 
 
+def format_updated_at(updated_at) -> str:
+    """Format updated_at (ISO string or None) for display."""
+    if not updated_at:
+        return "—"
+    try:
+        # Parse ISO and show short date
+        dt = datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
+        return dt.strftime("%b %d, %Y")
+    except (ValueError, TypeError):
+        return "—"
+
+
 def build_value_embed(item: dict) -> discord.Embed:
     gun_display = (item.get("gun") or "").strip()
     skin_display = (item.get("skin_name") or "").strip()
@@ -122,7 +135,25 @@ def build_value_embed(item: dict) -> discord.Embed:
     embed.add_field(name="CK", value=format_value(item.get("ck_value")), inline=True)
     embed.add_field(name="Upg", value=format_value(item.get("upg_value")), inline=True)
     embed.add_field(name="Status", value=format_value(item.get("status")), inline=True)
+    embed.add_field(name="Last updated", value=format_updated_at(item.get("updated_at")), inline=True)
+    embed.set_footer(text="DM mythiipanda for features/bugs")
     return embed
+
+
+VALUE_LIST_URL = "https://snaekvaluelist.netlify.app/"
+
+
+def build_link_view() -> discord.ui.View:
+    """View with link button to the value list website."""
+    view = discord.ui.View()
+    view.add_item(
+        discord.ui.Button(
+            style=discord.ButtonStyle.link,
+            url=VALUE_LIST_URL,
+            label="Snaek's Value List (Website)",
+        )
+    )
+    return view
 
 
 # Bot
@@ -190,7 +221,7 @@ async def value_cmd(interaction: discord.Interaction, gun: str, skin: str):
         await interaction.followup.send(f"No item found for **{gun}** / **{skin}**. Check spelling and try again.", ephemeral=True)
         return
     embed = build_value_embed(item)
-    await interaction.followup.send(embed=embed)
+    await interaction.followup.send(embed=embed, view=build_link_view())
 
 
 @bot.tree.command(name="set", description="Set a value field for a gun skin (base/dg/ck/upg/status)")
@@ -230,6 +261,7 @@ async def set_cmd(interaction: discord.Interaction, gun: str, skin: str, field: 
                 return
     else:
         payload = {col: value.strip() or None}
+    payload["updated_at"] = datetime.now(timezone.utc).isoformat()
     upd = supabase.table("items").update(payload).eq("id", item["id"]).execute()
     if upd.data:
         await interaction.followup.send(f"Updated **{item['gun']}** · **{item['skin_name']}** — **{field_lower}** = `{value.strip()}`.", ephemeral=True)

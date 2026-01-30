@@ -31,6 +31,7 @@ export type Database = {
           image_url: string | null;
           source_image_url: string | null;
           created_at: string;
+          updated_at: string | null;
         };
         Insert: Omit<Database["public"]["Tables"]["items"]["Row"], "created_at">;
         Update: Partial<Database["public"]["Tables"]["items"]["Insert"]>;

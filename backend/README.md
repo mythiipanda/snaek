@@ -15,7 +15,8 @@ Discord bot (discord.py) for value lookup and updating item values. Uses the sam
 Only the **owner** (Discord user ID `470431863316414465`) and users added via `/addadmin` can use `/set`. The owner can add/remove admins.
 
 1. **Create the `admins` table in Supabase** (one-time): open Supabase Dashboard → SQL Editor, run the script `backend/supabase_admins.sql`.
-2. After that, the owner can use `/addadmin @user` to grant others permission to set values.
+2. **Add `updated_at` to the `items` table** (one-time): run `backend/supabase_items_updated_at.sql` in the SQL Editor. This column is set by the bot on every `/set` update.
+3. After that, the owner can use `/addadmin @user` to grant others permission to set values.
 
 ## Local setup
 
