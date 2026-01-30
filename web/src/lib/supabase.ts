@@ -29,6 +29,7 @@ export type Database = {
           upg_value: string | null;
           status: string | null;
           image_url: string | null;
+          source_image_url: string | null;
           created_at: string;
         };
         Insert: Omit<Database["public"]["Tables"]["items"]["Row"], "created_at">;

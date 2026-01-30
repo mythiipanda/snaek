@@ -66,7 +66,7 @@ async function ensureBucket() {
 }
 
 async function downloadAndUploadImage(item) {
-  const wikiUrl = item.image_url;
+  const wikiUrl = item.source_image_url;
   if (!wikiUrl || isOurStorageUrl(wikiUrl)) return item;
 
   try {
@@ -107,7 +107,8 @@ function itemEquals(item, existing) {
     s(item.ck_value) === s(existing.ck_value) &&
     s(item.upg_value) === s(existing.upg_value) &&
     s(item.status) === s(existing.status) &&
-    s(item.image_url) === s(existing.image_url)
+    s(item.image_url) === s(existing.image_url) &&
+    s(item.source_image_url) === s(existing.source_image_url)
   );
 }
 
@@ -123,6 +124,7 @@ function flattenItems(parsed) {
       for (const it of groupItems ?? []) {
         const skin_name = String(it.skin_name ?? "").trim();
         if (!skin_name) continue;
+        const sourceImageUrl = it.image_url ?? null;
         items.push({
           id: `${groupName}:${typeKey}:${skin_name}`.toLowerCase(),
           group_name: groupName,
@@ -133,7 +135,8 @@ function flattenItems(parsed) {
           ck_value: it.ck_value != null ? String(it.ck_value) : null,
           upg_value: it.upg_value != null ? String(it.upg_value) : null,
           status: it.status ?? null,
-          image_url: it.image_url ?? null,
+          image_url: sourceImageUrl, // Will be updated to storage URL after download
+          source_image_url: sourceImageUrl, // Store original wiki URL
         });
       }
     }
@@ -164,7 +167,7 @@ async function main() {
 
   let items = flattenItems(parsed);
 
-  const { data: existingRows } = await supabase.from("items").select("id, base_value, dg_value, ck_value, upg_value, status, image_url");
+  const { data: existingRows } = await supabase.from("items").select("id, base_value, dg_value, ck_value, upg_value, status, image_url, source_image_url");
   const existingById = {};
   for (const row of existingRows ?? []) {
     existingById[row.id] = row;
@@ -172,14 +175,30 @@ async function main() {
 
   if (!SKIP_IMAGE_UPLOAD) {
     await ensureBucket();
-    const withImages = items.filter((i) => i.image_url && !isOurStorageUrl(i.image_url));
-    console.log("Downloading/uploading", withImages.length, "images (refreshing from wiki so changes are picked up)...");
+    // Only download/upload images if source_image_url has changed or doesn't exist
+    const withImages = items.filter((i) => {
+      if (!i.source_image_url || isOurStorageUrl(i.source_image_url)) return false;
+      const existing = existingById[i.id];
+      // Download if no existing record or source_image_url has changed
+      return !existing || (existing.source_image_url || "") !== (i.source_image_url || "");
+    });
+    console.log("Downloading/uploading", withImages.length, "images (only items with changed source URLs)...");
     for (let i = 0; i < withImages.length; i++) {
       const idx = items.indexOf(withImages[i]);
       items[idx] = await downloadAndUploadImage(items[idx]);
       process.stdout.write("\r  " + (i + 1) + " / " + withImages.length);
     }
     console.log("");
+    
+    // For items that didn't need downloading, preserve their existing image_url if source hasn't changed
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const existing = existingById[item.id];
+      if (existing && existing.image_url && (existing.source_image_url || "") === (item.source_image_url || "")) {
+        // Source hasn't changed, preserve existing storage URL
+        items[i] = { ...item, image_url: existing.image_url };
+      }
+    }
   } else {
     console.log("Skipping image upload (SKIP_IMAGE_UPLOAD is set).");
   }
